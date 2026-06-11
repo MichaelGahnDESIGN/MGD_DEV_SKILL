@@ -273,10 +273,9 @@ Schutzmaßnahmen und menschliche Freigaben Pflicht sein.
 
 Dieses Projekt steht unter der MIT-Lizenz.
 
-Die MIT-Lizenz ist für diesen Skill eine passende Open-Source-Lizenz, weil sie
-kurz, gut verständlich und sehr frei nutzbar ist. Andere dürfen den Skill nutzen,
-kopieren, verändern, weitergeben und auch in kommerziellen Projekten einsetzen,
-solange der Copyright- und Lizenzhinweis erhalten bleibt.
+Du kannst den Skill frei nutzen, kopieren, verändern und weitergeben, auch in
+kommerziellen Projekten. Bitte lass dabei den Copyright- und Lizenzhinweis
+erhalten.
 
 Der vollständige Lizenztext steht in [`LICENSE`](LICENSE).
 
