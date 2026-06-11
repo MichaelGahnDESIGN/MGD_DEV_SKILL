@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev"
+  short_description: "Project-neutral release, sync, backup, cleanup and Wissensdokumentation workflow."
+  default_prompt: "/dev"

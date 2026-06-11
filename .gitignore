@@ -1,0 +1,9 @@
+# Lokale Betriebssystem- und Editor-Dateien.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Lokale Umgebungsdateien duerfen nie in das Skill-Repository.
+.env
+.env.*
