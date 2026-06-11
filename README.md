@@ -24,6 +24,7 @@ Typische Einsaetze:
 - offene Branches, Remotes, Tags und Worktrees pruefen;
 - Dev-, Staging- und Live-Staende vergleichen;
 - Tests, Builds und Smoke-Checks passend zum Projekt ausfuehren;
+- Browser- und Playwright-Smokes fuer Weboberflaechen sicher durchfuehren;
 - vor Deployments Backups und Rueckfallstrategien beruecksichtigen;
 - alte Backups, Build-Artefakte und Cache-Dateien vorsichtig inventarisieren;
 - Wissensdokumentation, Wikis, `docs/`-Ordner oder vergleichbare Wissensorte aktualisieren;
@@ -182,6 +183,11 @@ Pruefe nur Git, Tests und Dokumentation.
 Bereite einen Release-Check vor. Keine Live-Aenderungen ohne Rueckfrage.
 ```
 
+```text
+/dev pruefe die GitHub-Seite und die README im Browser mit Playwright,
+aber aendere keine Einstellungen und lade keine privaten Dateien hoch.
+```
+
 Ein korrekt arbeitender Agent sollte zuerst Projektregeln und Dokumentation
 lesen, dann Git- und Projektstaende pruefen, Tests vorschlagen oder ausfuehren
 und Risiken klar benennen. Er sollte nicht sofort Deployments, Loeschungen oder
@@ -189,16 +195,36 @@ destruktive Befehle ausfuehren.
 
 ## Arbeitslogik des Skills
 
-Der Skill fuehrt den Agenten durch acht grosse Bereiche:
+Der Skill fuehrt den Agenten durch neun grosse Bereiche:
 
 1. Projektkontext und Regeln laden.
 2. Lokale, remote und deployte Staende vergleichen.
 3. Git, GitHub und Branches vereinheitlichen.
-4. Tests, Builds und Smoke-Checks ausfuehren.
-5. Deployments auf Dev/Staging und Live nur abgesichert angehen.
-6. Cleanup und Backup-Retention vorsichtig behandeln.
-7. Projektwissen, Wissensdokumentation oder vergleichbare Wissensorte aktualisieren.
-8. Einen kurzen, nachvollziehbaren Abschlussbericht schreiben.
+4. Tests, Builds und allgemeine Smoke-Checks ausfuehren.
+5. Browser- und Playwright-Smokes fuer Weboberflaechen sicher pruefen.
+6. Deployments auf Dev/Staging und Live nur abgesichert angehen.
+7. Cleanup und Backup-Retention vorsichtig behandeln.
+8. Projektwissen, Wissensdokumentation oder vergleichbare Wissensorte aktualisieren.
+9. Einen kurzen, nachvollziehbaren Abschlussbericht schreiben.
+
+## Browser- und Playwright-Smokes
+
+Der Skill enthaelt einen eigenen Workflow fuer browserbasierte Pruefungen. Er
+ist fuer Webapps, Admin-Panels, Dokumentationsseiten, GitHub-Seiten, Logins,
+Checkouts, Uploads und andere nutzernahe Browserpfade gedacht.
+
+Der Agent soll dabei bevorzugt vorhandene Playwright-, Cypress- oder
+E2E-Testbefehle nutzen. Wenn ein manueller Browser-Smoke sinnvoller ist, soll er
+konkrete sichtbare Erfolgssignale pruefen: ob die Seite laedt, ob zentrale
+Navigation funktioniert, ob Formularvalidierung sichtbar ist, ob README oder
+Release-Informationen korrekt angezeigt werden und ob keine offensichtlichen
+Konsolen- oder Netzwerkfehler auftreten.
+
+Wichtig ist die Sicherheitsgrenze: Der Skill verbietet unnoetige Screenshots mit
+personenbezogenen Daten, Secrets, Zahlungsdaten, Sessiondaten oder internen
+Admin-Details. Produktive Zahlungen, Loeschungen, E-Mail-Versandaktionen,
+Rechteaenderungen oder andere externe Nebenwirkungen duerfen nicht ohne klare
+Freigabe bestaetigt werden.
 
 Die Reihenfolge ist wichtig, weil sie verhindert, dass ein Agent zu frueh
 loescht, deployt oder Git-Staende ueberschreibt.

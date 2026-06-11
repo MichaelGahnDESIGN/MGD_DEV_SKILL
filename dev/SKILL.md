@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use when the user invokes /dev or asks to synchronize any software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, smoke tests, and Wissensdokumentation documentation.
+description: Use when the user invokes /dev or asks to synchronize any software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, and project knowledge documentation.
 ---
 
 # Dev
@@ -92,7 +92,44 @@ Fuehre passend zum Projekt aus, was die Dokumentation, CI oder der Stack naheleg
 
 Wenn ein erwartetes Tool nicht verfuegbar ist, dokumentiere den Grund und nutze den besten sicheren Ersatz, zum Beispiel Browser-, Curl- oder API-Smokes.
 
-### 5. Deploy auf Dev/Staging und Live
+### 5. Browser- und Playwright-Smokes
+
+Nutze Playwright, ein Browser-Plugin oder ein vergleichbares Browser-Automationswerkzeug, wenn das Projekt eine Weboberflaeche, ein Admin-Panel, eine Dokumentationsseite, eine GitHub-Seite, eine Login-Strecke, einen Checkout, Uploads oder andere nutzernahe Browserpfade hat.
+
+Arbeitsweise:
+
+- pruefe zuerst, ob es bereits projektinterne Playwright-, Cypress- oder E2E-Tests gibt, und bevorzuge diese gegenueber neu erfundenen Klickpfaden;
+- starte lokale Apps nur ueber dokumentierte Befehle und notiere URL, Branch, Commit und Umgebung;
+- teste Dev/Staging vor Live, wenn beide erreichbar sind;
+- lade Seiten nach Builds oder Deployments bewusst neu und pruefe eine konkrete sichtbare Erfolgsaussage, nicht nur den HTTP-Status;
+- erfasse Browser-Konsole, Netzwerkfehler oder sichtbare Fehlermeldungen nur soweit sie fuer die Diagnose gebraucht werden;
+- erstelle Screenshots nur, wenn sie fuer Nachvollziehbarkeit, Vergleich oder Fehlerdiagnose nuetzlich sind;
+- speichere oder veroeffentliche keine Screenshots mit personenbezogenen Daten, Tokens, E-Mail-Adressen, Zahlungsdaten, Sessiondaten, Kundendaten oder internen Admin-Details;
+- gib niemals Passwoerter, Einmalcodes, API-Keys, Zahlungsdaten oder andere Secrets in Browserseiten ein, ausser die Aufgabe, Umgebung und Freigabe sind eindeutig dokumentiert;
+- verwende fuer Logins nach Moeglichkeit Testkonten, Seed-Daten oder bereits dokumentierte sichere Testablaeufe;
+- bestaetige keine produktiven Zahlungen, Loeschungen, E-Mail-Versandaktionen, Rechteaenderungen oder externen Nebenwirkungen ohne ausdrueckliche Freigabe.
+
+Typische Smoke-Pfade:
+
+- Startseite oder zentrale App-Shell laedt ohne sichtbaren Fehler;
+- Login- oder Auth-Status wird korrekt angezeigt, soweit sicher testbar;
+- Hauptnavigation, Dashboard, Listenansicht oder Kernmodul ist erreichbar;
+- Formularvalidierung zeigt erwartete Hinweise ohne echte Daten zu senden;
+- Admin- oder Profilbereiche geben keine sensiblen Informationen unnoetig preis;
+- Checkout- oder Zahlungsstrecken werden nur im Test-/Sandbox-Modus geprueft;
+- GitHub-, Dokumentations- oder Release-Seiten zeigen aktuellen Commit, README, Changelog oder Artefakte.
+
+Berichte Browser-Ergebnisse knapp mit:
+
+- getesteter URL und Umgebung;
+- Tool oder vorhandener Testbefehl;
+- geprueften Nutzerpfaden;
+- Ergebnis je Pfad;
+- relevanten Konsolen-/Netzwerkfehlern ohne Secrets;
+- Screenshot-Pfad oder bewusster Verzicht auf Screenshots;
+- offenen Risiken, zum Beispiel fehlender Login, privates Repository, nicht erreichbares Staging oder fehlende Testdaten.
+
+### 6. Deploy auf Dev/Staging und Live
 
 Vor jedem Deploy:
 
@@ -111,7 +148,7 @@ Deploy-Reihenfolge:
 4. Live-Versionen, Healthchecks und zentrale Nutzerpfade pruefen.
 5. Browser-Smoke mit Playwright, Browser-Plugin oder dokumentiertem Ersatz durchfuehren.
 
-### 6. Cleanup und Backup-Retention
+### 7. Cleanup und Backup-Retention
 
 Erstelle zuerst eine Inventarliste:
 
@@ -140,7 +177,7 @@ Nicht loeschen:
 - unbekannte Dateien mit moeglichen Secrets;
 - Nutzeruploads, Medien, Rechnungsdaten, Logs mit rechtlicher Relevanz oder Auditdaten ohne klare Freigabe.
 
-### 7. Projektwissen aktualisieren
+### 8. Projektwissen aktualisieren
 
 Aktualisiere, wenn vorhanden und erreichbar, den im Projekt dokumentierten Wissensort. Das kann zum Beispiel `Wissensdokumentation`, ein `docs/`-Bereich, eine interne Wissensdatenbank, ein Wiki, ein Obsidian-Vault oder eine andere projektbezogene Dokumentationsstruktur sein.
 
@@ -165,14 +202,14 @@ Typische Zielbereiche:
 
 Wenn kein passender Zielordner existiert, lege nur dann einen neuen Projektordner an, wenn Projektname, Zweck und gewuenschter Dokumentationsort eindeutig sind. Andernfalls dokumentiere lokal im Projekt und nenne den offenen Wissensdokumentations-Punkt im Abschlussbericht.
 
-### 8. Abschlussbericht
+### 9. Abschlussbericht
 
 Berichte knapp:
 
 - Projektname, aktueller Commit und Branch;
 - GitHub-/Remote-Stand;
 - Dev-/Staging-/Live-Version oder Grund, warum sie nicht pruefbar war;
-- ausgefuehrte Tests und getestete Funktionen;
+- ausgefuehrte Tests, Browser-Smokes und getestete Funktionen;
 - Backup-Pfad, Umfang und Hashpruefung;
 - Deploy- oder Cleanup-Aktionen;
 - aktualisierte Projekt- und Wissensdokumentations-Dateien;
