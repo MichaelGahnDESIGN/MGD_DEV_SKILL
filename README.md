@@ -1,76 +1,73 @@
 # DEV-Skill
 
-Der **DEV-Skill** ist eine wiederverwendbare Arbeitsanweisung für AI-Agenten wie
-Claude Code, ChatGPT Codex und andere agentische Entwicklungsumgebungen.
+Ich nutze AI-Agenten nicht nur zum Schreiben einzelner Dateien, sondern auch für
+die wichtigen Projektaufgaben am Rand: Stände prüfen, GitHub
+abgleichen, Backups im Blick behalten, Deployments vorbereiten, Browser-Smokes
+machen und am Ende sauber dokumentieren, was wirklich passiert ist.
 
-Er hilft dabei, ein Softwareprojekt kontrolliert in einen sauberen,
-nachvollziehbaren Arbeitsstand zu bringen: lokal, in Git/GitHub, auf
-Entwicklungszweigen, in Dev/Staging, auf Live-Systemen, in Backups, in Tests,
-in Browser-Smokes und in der begleitenden Projektdokumentation.
+Aus genau diesem Alltag heraus ist der **DEV-Skill** entstanden.
 
-Der Skill ist bewusst projektneutral. Er enthält keine festen Projektnamen,
-keine privaten Serverpfade und keine kundenspezifischen Annahmen. Stattdessen
-weist er den Agenten an, die Regeln, Testbefehle, Deployment-Ziele,
-Dokumentationsorte und Sicherheitsanforderungen immer aus dem jeweiligen
-Repository abzuleiten.
+Der Skill ist eine wiederverwendbare Arbeitsanweisung für Claude Code, ChatGPT
+Codex und andere AI-Agenten. Er soll einem Agenten helfen, ein Softwareprojekt
+nicht hektisch, sondern kontrolliert in einen nachvollziehbaren Arbeitsstand zu
+bringen.
 
-## Wofür ist dieser Skill gedacht?
+Wichtig: Der Skill ist projektneutral. Er enthält keine festen Projektnamen,
+keine privaten Serverpfade und keine kundenspezifischen Annahmen. Der Agent soll
+immer aus dem jeweiligen Repository ableiten, welche Regeln, Testbefehle,
+Deployment-Ziele, Backup-Orte und Dokumentationsstrukturen gelten.
 
-Der DEV-Skill ist für Situationen gedacht, in denen ein Agent nicht nur eine
-einzelne Datei ändern soll, sondern den Zustand eines Projekts als Ganzes
-prüfen muss.
+## Wofür ich den Skill gebaut habe
 
-Typische Aufgaben sind:
+Ich wollte einen wiederverwendbaren Ablauf für typische Projekt-Situationen, in
+denen ein Agent mehr tun muss als nur Code ändern.
+
+Zum Beispiel:
 
 - offene Änderungen, Branches, Remotes und Tags prüfen;
 - lokale Arbeit mit GitHub abgleichen;
 - Dev-, Staging- und Live-Stände vergleichen;
-- Tests, Builds und Smoke-Checks passend zum Projekt ausführen;
-- Browser- und Playwright-Smokes für Weboberflächen durchführen;
-- vor Deployments Backups und Rückfallwege berücksichtigen;
+- Tests, Builds und Smoke-Checks ausführen;
+- Weboberflächen mit Playwright oder einem Browser-Tool prüfen;
+- Backups und Rückfallwege vor Deployments berücksichtigen;
 - alte Backups, Build-Artefakte und Cache-Dateien vorsichtig einordnen;
-- Projektdokumentation und Wissensdatenbanken aktualisieren;
-- Risiken, offene Punkte und nächste Schritte verständlich dokumentieren.
+- Projektwissen und Dokumentation aktualisieren;
+- am Ende klar berichten, was geprüft wurde und was offen bleibt.
 
-Kurz gesagt: Der Skill ist für die Momente gedacht, in denen ein Projekt
-geordnet, sicher und nachvollziehbar weitergegeben, veröffentlicht oder
-aufgeräumt werden soll.
+Der Skill ist besonders dann hilfreich, wenn ein Projekt übergeben,
+veröffentlicht, aufgeräumt oder für den nächsten Arbeitsschritt vorbereitet
+werden soll.
 
-## Was der Skill nicht tut
+## Was dieser Skill nicht ersetzt
 
-Der DEV-Skill ist kein automatisches Deployment-Skript. Er ersetzt keine
-menschliche Freigabe, keinen echten Restore-Test und kein Security-Audit.
+Der DEV-Skill ist kein Autopilot für Live-Deployments. Er ersetzt keine
+menschliche Freigabe, keinen Restore-Test, kein Security-Audit und keine
+rechtliche Prüfung.
 
-Er soll Agenten dabei helfen, vorsichtig zu arbeiten. Besonders bei Live-Systemen,
-Datenbanken, Uploads, Admin-Bereichen, Zahlungsfunktionen oder personenbezogenen
-Daten bleibt eine bewusste menschliche Entscheidung wichtig.
+Er ist bewusst vorsichtig formuliert. Wenn es um Produktivsysteme, Datenbanken,
+Uploads, Admin-Bereiche, Zahlungen oder personenbezogene Daten geht, soll der
+Agent lieber einmal mehr nachweisen, was er tut, als einmal zu schnell handeln.
 
-## Sicherheitsprinzipien
+## Grundprinzipien
 
-Sicherheit und Datenschutz stehen im Mittelpunkt des Skills. Der Agent wird
-angewiesen, sensible Daten nicht unnötig zu lesen, zu speichern, zu loggen oder
-weiterzugeben.
+Der Skill folgt ein paar einfachen Prinzipien:
 
-Der Skill betont unter anderem:
+- Erst verstehen, dann ändern.
+- Erst sichern, dann deployen.
+- Erst prüfen, dann behaupten.
+- Keine Secrets in Git, Logs, Screenshots oder Abschlussberichte.
+- Keine produktiven Löschungen oder Zahlungen ohne klare Freigabe.
+- Keine privaten Pfade oder Zugangsdaten in öffentliche Dokumentation.
+- Abweichungen und Risiken lieber klar benennen als schönreden.
 
-- keine Secrets, Tokens, Passwörter oder `.env*`-Dateien in Git schreiben;
-- keine personenbezogenen Daten in Logs, Screenshots oder Abschlussberichte
-  übernehmen;
-- Zahlungsdaten nicht selbst speichern oder ungeschützt verarbeiten;
-- Webhooks und Zahlungsanbieter nur mit offiziellen Prüfverfahren absichern;
-- Live-Änderungen nur mit Backup, Restore-Pfad und Tests angehen;
-- keine destruktiven Git-, Datenbank- oder Serverbefehle ohne klare Absicherung;
-- Backups erst löschen, wenn neue vollständige Backups geprüft wurden;
-- mindestens die letzten drei vollständigen Backups je Backup-Familie behalten.
-
-Diese Regeln sind absichtlich streng. Bei Release-, Backup-, Deployment- und
-Cleanup-Arbeiten ist ein vorsichtiger Agent deutlich wertvoller als ein schneller
-Agent.
+Diese Haltung ist mir wichtig, weil AI-Agenten sehr schnell sehr viel bewegen
+können. Geschwindigkeit ist gut, Nachvollziehbarkeit ist wichtiger.
 
 ## Repository-Struktur
 
 ```text
 DEV-Skill/
+├── LICENSE
 ├── README.md
 └── dev/
     ├── SKILL.md
@@ -78,42 +75,36 @@ DEV-Skill/
         └── openai.yaml
 ```
 
-### `dev/SKILL.md`
+`dev/SKILL.md` ist die eigentliche Skill-Datei. Dort steht die vollständige
+Arbeitsanweisung für den Agenten.
 
-Das ist die eigentliche Skill-Datei. Sie enthält das Frontmatter für die
-Skill-Erkennung und danach die vollständige Arbeitsanweisung.
-
-### `dev/agents/openai.yaml`
-
-Diese Datei enthält zusätzliche Metadaten für Umgebungen, die eine kurze
-Interface-Beschreibung auslesen. Der Skill funktioniert auch dann, wenn ein
-Agent nur `SKILL.md` nutzt.
+`dev/agents/openai.yaml` enthält zusätzliche Metadaten für Umgebungen, die eine
+kurze Beschreibung oder einen Standard-Prompt anzeigen.
 
 ## Installation in ChatGPT Codex oder Codex Desktop
 
-Je nach Codex-Installation können Skill-Ordner unterschiedlich liegen. In vielen
-lokalen Setups werden persönliche Skills in einem Codex-Skill-Ordner abgelegt.
-
-Beispiel:
+Je nach Codex-Installation können persönliche Skills an unterschiedlichen Orten
+liegen. In vielen Setups funktioniert dieser Weg:
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R dev ~/.codex/skills/dev
 ```
 
-Manche Setups verwenden stattdessen einen allgemeinen Agenten-Skill-Ordner:
+Manche Installationen nutzen stattdessen einen allgemeinen Agenten-Skill-Ordner:
 
 ```bash
 mkdir -p ~/.agents/skills
 cp -R dev ~/.agents/skills/dev
 ```
 
-Wenn deine Codex-Version einen anderen Installationspfad dokumentiert, folge
-dieser lokalen Dokumentation.
+Wenn deine Codex-Version einen anderen Pfad vorgibt, nimm bitte den Pfad aus
+deiner lokalen Dokumentation.
 
 ## Installation in Claude Code
 
-In vielen Claude-Code-Setups liegen persönliche Skills in einem Claude-Skill-Ordner.
+Für Claude Code werden persönliche Skills häufig in einem Claude-Skill-Ordner
+abgelegt.
 
 Beispiel:
 
@@ -122,31 +113,31 @@ mkdir -p ~/.claude/skills
 cp -R dev ~/.claude/skills/dev
 ```
 
-Danach kann Claude Code den Skill über das Frontmatter in `SKILL.md` finden,
-wenn eine Aufgabe zum beschriebenen Einsatzbereich passt.
+Danach kann Claude Code den Skill über das Frontmatter in `dev/SKILL.md`
+erkennen.
 
 ## Nutzung mit anderen AI-Agenten
 
-Andere AI-Agenten können den Skill ebenfalls verwenden, wenn sie Markdown-Regeln
+Du kannst den Skill auch mit anderen Agenten nutzen, wenn sie Markdown-Regeln
 oder Skill-Dateien laden können.
 
-Allgemeines Vorgehen:
+Allgemein reicht meistens:
 
-1. Kopiere den Ordner `dev/` in den Skill-, Rules- oder Instructions-Bereich des
-   jeweiligen Agents.
-2. Stelle sicher, dass der Agent das Frontmatter in `SKILL.md` lesen kann.
-3. Hinterlege bei Bedarf einen Trigger wie `/dev`, `dev`, `release workflow`,
-   `project sync`, `backup cleanup` oder `deployment readiness`.
-4. Prüfe mit einer harmlosen Testaufgabe, ob der Agent den Skill wirklich lädt.
+1. Den Ordner `dev/` in den Skill-, Rules- oder Instructions-Bereich des Agents
+   kopieren.
+2. Prüfen, ob der Agent das Frontmatter in `SKILL.md` erkennt.
+3. Einen Trigger wie `/dev`, `dev`, `release workflow`, `project sync`,
+   `backup cleanup` oder `deployment readiness` verwenden.
+4. Mit einer ungefährlichen Aufgabe testen, ob der Agent den Skill wirklich
+   nutzt.
 
-Wenn ein Agent kein eigenes Skill-System besitzt, kann der Inhalt von
+Wenn ein Agent kein eigenes Skill-System hat, kannst du den Inhalt von
 `dev/SKILL.md` auch als Projektregel oder wiederverwendbare Arbeitsanweisung
-genutzt werden.
+einsetzen.
 
-## Empfohlene Testaufgaben
+## Gute erste Testaufgaben
 
-Nach der Installation sollte der Skill zuerst mit ungefährlichen Aufgaben
-getestet werden.
+Ich würde den Skill zuerst mit lesenden oder risikoarmen Aufgaben testen.
 
 Beispiele:
 
@@ -168,12 +159,12 @@ Bereite einen Release-Check vor. Keine Live-Änderungen ohne Rückfrage.
 aber ändere keine Einstellungen und lade keine privaten Dateien hoch.
 ```
 
-Ein korrekt arbeitender Agent sollte zuerst Projektregeln und Dokumentation
+Ein gut arbeitender Agent sollte dabei zuerst Projektregeln und Dokumentation
 lesen, dann Git- und Projektstände prüfen, Tests vorschlagen oder ausführen und
 Risiken klar benennen. Er sollte nicht sofort deployen, löschen oder produktive
 Systeme verändern.
 
-## Ablauf des Skills
+## Ablauf im Skill
 
 Der Skill führt den Agenten durch neun Bereiche:
 
@@ -187,20 +178,20 @@ Der Skill führt den Agenten durch neun Bereiche:
 8. Projektwissen und Wissensdokumentation aktualisieren.
 9. Einen kurzen, nachvollziehbaren Abschlussbericht schreiben.
 
-Die Reihenfolge ist wichtig. Sie verhindert, dass ein Agent zu früh löscht,
+Die Reihenfolge ist wichtig. Sie soll verhindern, dass ein Agent zu früh löscht,
 deployed oder Git-Stände überschreibt.
 
 ## Browser- und Playwright-Smokes
 
-Der Skill enthält einen eigenen Workflow für browserbasierte Prüfungen. Er ist
-für Webapps, Admin-Panels, Dokumentationsseiten, GitHub-Seiten, Logins,
-Checkouts, Uploads und andere nutzernahe Browserpfade gedacht.
+Browser-Smokes sind ein eigener Teil des Skills, weil viele Probleme erst im
+sichtbaren Produkt auffallen: kaputte Navigation, falsche README, nicht geladene
+Assets, Login-Probleme, Konsolenfehler oder nicht erreichbare Admin-Bereiche.
 
 Der Agent soll zuerst prüfen, ob es im Projekt bereits Playwright-, Cypress- oder
 E2E-Tests gibt. Vorhandene Tests sind besser als neu erfundene Klickpfade.
 
-Wenn ein manueller Browser-Smoke sinnvoller ist, soll der Agent konkrete
-sichtbare Erfolgssignale prüfen, zum Beispiel:
+Wenn ein manueller Browser-Smoke sinnvoller ist, soll der Agent sichtbare
+Erfolgssignale prüfen:
 
 - lädt die Startseite ohne sichtbaren Fehler?
 - funktioniert die zentrale Navigation?
@@ -209,15 +200,15 @@ sichtbare Erfolgssignale prüfen, zum Beispiel:
 - wird die README oder eine Release-Seite korrekt angezeigt?
 - gibt es relevante Konsolen- oder Netzwerkfehler?
 
-Wichtig: Screenshots, Logs und Browser-Ausgaben dürfen keine personenbezogenen
-Daten, Sessiondaten, Tokens, Zahlungsdaten oder internen Admin-Details enthalten.
+Screenshots, Logs und Browser-Ausgaben dürfen keine personenbezogenen Daten,
+Sessiondaten, Tokens, Zahlungsdaten oder internen Admin-Details enthalten.
 Produktive Zahlungen, Löschungen, E-Mail-Versandaktionen, Rechteänderungen oder
 andere externe Nebenwirkungen brauchen eine klare Freigabe.
 
 ## Anpassung an eigene Projekte
 
-Der Skill bleibt bewusst allgemein. Projektspezifische Details gehören deshalb
-in das jeweilige Projekt, nicht in diesen Skill.
+Der Skill selbst soll allgemein bleiben. Projektspezifische Details gehören in
+das jeweilige Projekt.
 
 Gute Orte dafür sind zum Beispiel:
 
@@ -229,13 +220,14 @@ Gute Orte dafür sind zum Beispiel:
 - Deployment-Runbooks
 - Sicherheits- und Backup-Dokumentation
 
-So kann derselbe DEV-Skill in sehr unterschiedlichen Projekten funktionieren,
-während jedes Projekt seine eigenen Pfade, Testbefehle, Server, Risiken und
-Freigaberegeln sauber dokumentiert.
+So kann derselbe DEV-Skill in unterschiedlichen Projekten funktionieren, während
+jedes Projekt seine eigenen Pfade, Testbefehle, Server, Risiken und Freigaben
+sauber dokumentiert.
 
-## Hinweise für Forks und Beiträge
+## Beiträge und Forks
 
-Wenn du den Skill anpasst, achte bitte darauf, dass er projektneutral bleibt.
+Wenn du den Skill anpasst oder forkst, achte bitte darauf, dass er
+projektneutral bleibt.
 
 Bitte vermeide:
 
@@ -246,7 +238,7 @@ Bitte vermeide:
 - harte Löschbefehle;
 - Live-Deployments ohne Backup- und Rückfalllogik.
 
-Gute Erweiterungen sind zum Beispiel:
+Gute Erweiterungen sind willkommen, zum Beispiel:
 
 - klarere Sicherheitsregeln;
 - bessere Hinweise für verschiedene Tech-Stacks;
