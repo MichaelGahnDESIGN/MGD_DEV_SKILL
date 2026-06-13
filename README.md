@@ -69,6 +69,15 @@ können. Geschwindigkeit ist gut, Nachvollziehbarkeit ist wichtiger.
 DEV-Skill/
 ├── LICENSE
 ├── README.md
+├── .gitignore
+├── .github/
+│   └── ISSUE_TEMPLATE/
+├── .claude/
+│   └── commands/
+│       └── dev.md
+├── .codex/
+│   └── commands/
+│       └── dev.md
 └── dev/
     ├── SKILL.md
     └── agents/
@@ -78,43 +87,54 @@ DEV-Skill/
 `dev/SKILL.md` ist die eigentliche Skill-Datei. Dort steht die vollständige
 Arbeitsanweisung für den Agenten.
 
-`dev/agents/openai.yaml` enthält zusätzliche Metadaten für Umgebungen, die eine
-kurze Beschreibung oder einen Standard-Prompt anzeigen.
+`dev/agents/openai.yaml` enthält Metadaten für Agenten-Umgebungen, die ein
+kurzes Anzeigeprofil oder einen Standard-Prompt erwarten (z. B. OpenAI-basierte
+Tool-Registries). Die Datei ist optional und hat keinen Einfluss auf Claude Code
+oder Codex.
+
+`.claude/commands/dev.md` und `.codex/commands/dev.md` sind Slash-Command-
+Vorlagen. Sie sorgen dafür, dass `/dev` in Claude Code und ChatGPT Codex als
+direkter Befehl erkannt wird.
 
 ## Installation in ChatGPT Codex oder Codex Desktop
 
-Je nach Codex-Installation können persönliche Skills an unterschiedlichen Orten
-liegen. In vielen Setups funktioniert dieser Weg:
+Klone das Repository und lege den `dev/`-Ordner in deinen Codex-Skill-Pfad:
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R dev ~/.codex/skills/dev
+git clone https://github.com/MichaelGahnDESIGN/DEV-Skill.git ~/.codex/skills/DEV-Skill
+cp -R ~/.codex/skills/DEV-Skill/dev ~/.codex/skills/dev
 ```
 
 Manche Installationen nutzen stattdessen einen allgemeinen Agenten-Skill-Ordner:
 
 ```bash
 mkdir -p ~/.agents/skills
-cp -R dev ~/.agents/skills/dev
+cp -R ~/.codex/skills/DEV-Skill/dev ~/.agents/skills/dev
 ```
 
-Wenn deine Codex-Version einen anderen Pfad vorgibt, nimm bitte den Pfad aus
-deiner lokalen Dokumentation.
+**Updates:** Da das Repository geklont wurde, kannst du später einfach updaten:
+
+```bash
+cd ~/.codex/skills/DEV-Skill && git pull && cp -R dev ~/.codex/skills/dev
+```
 
 ## Installation in Claude Code
 
-Für Claude Code werden persönliche Skills häufig in einem Claude-Skill-Ordner
-abgelegt.
-
-Beispiel:
+Klone das Repository und lege den `dev/`-Ordner in deinen Claude-Skill-Pfad:
 
 ```bash
-mkdir -p ~/.claude/skills
-cp -R dev ~/.claude/skills/dev
+git clone https://github.com/MichaelGahnDESIGN/DEV-Skill.git ~/.claude/skills/DEV-Skill
+cp -R ~/.claude/skills/DEV-Skill/dev ~/.claude/skills/dev
 ```
 
 Danach kann Claude Code den Skill über das Frontmatter in `dev/SKILL.md`
 erkennen.
+
+**Updates:**
+
+```bash
+cd ~/.claude/skills/DEV-Skill && git pull && cp -R dev ~/.claude/skills/dev
+```
 
 ## Nutzung mit anderen AI-Agenten
 
