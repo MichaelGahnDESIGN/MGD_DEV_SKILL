@@ -250,18 +250,31 @@ Im [Wiki](https://github.com/MichaelGahnDESIGN/DEV-Skill/wiki) findest du
 zusätzliche Erklärungen und konkrete Workflows, zum Beispiel für
 Backup-Verwaltung, Speicherplatz sparen, Release-Checks und Browser-Smokes.
 
-## Verwandte Projekte
+## Verwandte Projekte Von Michael Gahn DESIGN
 
-Der DEV-Skill gehört zu meinem größeren Arbeitsumfeld rund um strukturierte
-AI-Projekte und Agenten-Workflows.
+Der DEV-Skill gehört zu einer kleinen Werkzeugfamilie für KI-gestützte
+Projektarbeit.
 
-- [AI-Basic-Projektordner](https://github.com/MichaelGahnDESIGN/AI-Basic-Projektordner):
-  Eine Projektordner-Vorlage für die Arbeit mit ChatGPT Codex, Claude Code und
-  weiteren AI-Agenten.
+- [AI-Basic-Projektordner](https://github.com/MichaelGahnDESIGN/AI-Basic-Projektordner)  
+  Eine saubere Projektvorlage mit Regeln, Dokumentation, Agentenstruktur und
+  Sicherheitsgrenzen. Sinnvoll als Basis für neue Projekte.
 
-- [Claude-Codex-MCP](https://github.com/MichaelGahnDESIGN/Claude-Codex-MCP):
-  Mein lokales MCP-System für Aufgaben, Übergaben und Zusammenarbeit zwischen
-  Claude, Codex und weiteren KI-Agenten.
+- [AI Project Updater Skill](https://github.com/MichaelGahnDESIGN/AI-Project-Updater-Skill)  
+  Ein geführter Assistent für lokale Staging-Umgebungen, Docker-Planung,
+  Update-Vorbereitung und sichere Staging-zu-Live-Abläufe. Das Repository ist
+  während der Entwicklung zunächst privat.
+
+- [ProjectClean-Skill](https://github.com/MichaelGahnDESIGN/ProjectClean-Skill)  
+  Ein Abschluss- und Aufräum-Skill für Versionen, Tests, Commits, Backups,
+  Dokumentation und vorsichtiges Cleanup.
+
+- [AI-PlayTest-Skill](https://github.com/MichaelGahnDESIGN/AI-PlayTest-Skill)  
+  Ein Skill für Play-Tests aus Sicht echter Nutzerrollen, lokal, auf Staging
+  oder vorsichtig auf Live.
+
+- [Claude-Codex-MCP](https://github.com/MichaelGahnDESIGN/Claude-Codex-MCP)  
+  Ein lokales MCP-System für Aufgaben, Chat und Übergaben zwischen Claude,
+  Codex und weiteren KI-Agenten.
 
 ## Beiträge und Forks
 
