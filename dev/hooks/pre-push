@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# DEV-Skill Pre-Push-Schutz
+# =========================
+# Verhindert technisch, dass Play-Test-Branches, Backups oder sensible Daten
+# nach GitHub (oder ein anderes Remote) gelangen. Ergänzt die "Lokal-only"-
+# Regel aus dev/SKILL.md – als Belt-and-Suspenders, nicht als Ersatz.
+#
+# Installation (im Zielprojekt, einmalig):
+#   cp dev/hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+# Oder zentral fuer mehrere Repos:
+#   git config core.hooksPath <pfad-zu-hooks-ordner>
+#
+# Git ruft diesen Hook mit den zu pushenden Refs auf stdin auf:
+#   <local_ref> <local_sha> <remote_ref> <remote_sha>
+#
+set -euo pipefail
+
+ZERO='0000000000000000000000000000000000000000'
+
+# Branchnamen, die niemals gepusht werden duerfen (case-insensitive).
+BLOCK_BRANCH_RE='play[-_]?test'
+
+# Datei-/Pfadmuster fuer Backups und sensible Daten.
+# .env.example ist erlaubt und wird vorab herausgefiltert.
+SENSITIVE_RE='(^|/)(\.env($|\.)|.*\.sql(\.gz)?$|.*\.dump$|backups?/|backup[^/]*/|playtest/|.*\.pem$|.*\.key$|id_rsa|server_access|credentials)'
+
+fail() {
+  echo "" >&2
+  echo "🚫 pre-push BLOCKIERT: $1" >&2
+  echo "   (DEV-Skill Lokal-only-Regel: Playtests, Backups und Secrets bleiben lokal.)" >&2
+  echo "" >&2
+  exit 1
+}
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # Branch-Loeschungen (local_sha = 0) sind erlaubt.
+  [ "$local_sha" = "$ZERO" ] && continue
+
+  branch="${local_ref#refs/heads/}"
+  if printf '%s' "$branch" | grep -Eiq "$BLOCK_BRANCH_RE"; then
+    fail "Branch '$branch' ist ein Play-Test-Branch und darf nicht gepusht werden."
+  fi
+
+  # Zu pushende Dateien ermitteln.
+  if [ "$remote_sha" = "$ZERO" ]; then
+    # Neuer Remote-Branch: alle Dateien der neuen Commits betrachten.
+    files=$(git diff-tree --no-commit-id --name-only -r "$local_sha" 2>/dev/null || true)
+  else
+    files=$(git diff --name-only "$remote_sha" "$local_sha" 2>/dev/null || true)
+  fi
+
+  # .env.example herausfiltern, dann gegen sensible Muster pruefen.
+  if printf '%s\n' "$files" | grep -Eiv '(^|/)\.env\.example$' | grep -Eiq "$SENSITIVE_RE"; then
+    hit=$(printf '%s\n' "$files" | grep -Eiv '(^|/)\.env\.example$' | grep -Ei "$SENSITIVE_RE" | head -3 | tr '\n' ' ')
+    fail "Sensible Datei/Backup im Push-Bereich von '$branch': ${hit}"
+  fi
+done
+
+exit 0

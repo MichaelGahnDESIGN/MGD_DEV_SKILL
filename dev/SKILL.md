@@ -20,6 +20,17 @@ Der Skill ist projektneutral. Projektname, Stack, Live-/Staging-Ziele, Backup-Pf
 - `.trash`, generierte Build-Artefakte, App-Bundles, alte Archive und Cache-Verzeichnisse nur löschen, wenn sie eindeutig reproduzierbar sind und nicht mehr als Restore- oder Referenzstand gebraucht werden.
 - Bei Zahlungs-, Auth-, Profil-, Upload-, Rechnungs-, Admin-, Logging- und personenbezogenen Daten besonders streng nach Datenminimierung, Zugriffsbeschränkung, Verschlüsselung/Hashing, sicherer Token-Ablage und DSGVO-Nähe arbeiten.
 
+### Lokal-only — Playtests, Backups und sensible Daten verlassen NIE die lokale Maschine
+
+Diese Regel ist nicht verhandelbar und hat Vorrang vor jedem Aufräum-, Release- oder Sync-Schritt:
+
+- **Niemals nach GitHub und niemals nach Live** gelangen: Play-Test-Branches und -Artefakte (`PLAYTEST/`, `PlayTest/`, Protokolle, Screenshots), Backups (DB-Dumps, `*.sql`, `*.sql.gz`, `*.dump`, `BACKUPS/`/`BACKUP*`) sowie sensible Daten (`.env*` außer `.env.example`, Tokens, API-Keys, Passwörter, `*.pem`, `*.key`, `id_rsa*`, Dateien mit Zugangsdaten/`server_access`). Diese bleiben **ausschließlich lokal**.
+- **Push-Disziplin:** Nur den vereinbarten Hauptbranch (i. d. R. `main`) pushen. **Niemals** `git push --all` oder `git push --mirror`. Branches, deren Name `playtest` enthält (z. B. `PlayTest*`), werden **nie** gepusht — sie sind reine Lokal-Branches.
+- **Vor jedem Push prüfen:** zu pushende Branchnamen gegen das `playtest`-Muster und `git diff --cached --name-only` bzw. den Push-Bereich gegen die obigen Datei-/Pfadmuster. Bei einem Treffer **abbrechen** und den Befund melden, statt zu pushen.
+- **Vor jedem Deploy prüfen:** Die Deploy-Quelle (rsync-Quelle, Build-Verzeichnis, Archiv) enthält keine Backups, keine `PLAYTEST/`-Inhalte und keine Secrets. Niemals Backups oder Test-Artefakte in den Webroot/Live-Stand spielen.
+- Alle genannten Muster gehören in `.gitignore`; fehlt ein Eintrag, zuerst `.gitignore` ergänzen, dann weiterarbeiten.
+- **Technische Absicherung:** Installiere im Projekt den mitgelieferten Pre-Push-Hook `dev/hooks/pre-push` (siehe dort), der Push-Versuche von Playtest-Branches, Backups und Secrets hart blockiert — Belt-and-Suspenders zusätzlich zu dieser Regel.
+
 ## Ablauf
 
 ### 1. Projektkontext und Regeln laden

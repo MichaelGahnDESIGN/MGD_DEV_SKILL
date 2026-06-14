@@ -18,6 +18,7 @@ Nutze `dev/SKILL.md` aus diesem Repository als Arbeitsgrundlage und führe den A
 
 ## Sicherheitsregeln
 
+- **Lokal-only (Vorrang):** Play-Test-Branches/-Artefakte (`PLAYTEST/`, `PlayTest*`), Backups (`*.sql`, `*.sql.gz`, `BACKUPS/`) und sensible Daten (`.env*` außer `.env.example`, Tokens, Keys, Zugangsdaten) NIE zu GitHub pushen und NIE deployen. Nur `main` pushen, niemals `git push --all`. Vor Push/Deploy gegen diese Muster prüfen; siehe `dev/SKILL.md` und den Pre-Push-Hook `dev/hooks/pre-push`.
 - Keine Secrets, Tokens oder Passwörter in Git, Logs oder Berichte schreiben.
 - Keine `git reset --hard`, Backup-Löschung oder Live-Änderungen ohne vorheriges geprüftes Backup.
 - Live nicht überschreiben, bevor Backup, Tests und Rückfallstrategie klar sind.
