@@ -1,4 +1,4 @@
 interface:
   display_name: "Dev"
-  short_description: "Project-neutral release, sync, backup, cleanup, browser smoke and project knowledge workflow."
+  short_description: "Project-neutral release, sync, backup, cleanup, changelog, browser smoke and project knowledge workflow."
   default_prompt: "/dev"

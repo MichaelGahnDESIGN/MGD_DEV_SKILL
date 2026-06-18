@@ -30,6 +30,8 @@ Zum Beispiel:
 - Tests, Builds und Smoke-Checks ausführen;
 - Weboberflächen mit Playwright oder einem Browser-Tool prüfen;
 - Backups und Rückfallwege vor Deployments berücksichtigen;
+- Changelog-Dateien pflegen, damit Änderungen später in Updatern, Menüs oder
+  Notificationcentern nutzbar werden;
 - alte Backups, Build-Artefakte und Cache-Dateien vorsichtig einordnen;
 - Projektwissen und Dokumentation aktualisieren;
 - am Ende klar berichten, was geprüft wurde und was offen bleibt.
@@ -74,10 +76,12 @@ DEV-Skill/
 │   └── ISSUE_TEMPLATE/
 ├── .claude/
 │   └── commands/
-│       └── dev.md
+│       ├── dev.md
+│       └── dev-changelog.md
 ├── .codex/
 │   └── commands/
-│       └── dev.md
+│       ├── dev.md
+│       └── dev-changelog.md
 └── dev/
     ├── SKILL.md
     └── agents/
@@ -92,30 +96,33 @@ kurzes Anzeigeprofil oder einen Standard-Prompt erwarten (z. B. OpenAI-basierte
 Tool-Registries). Die Datei ist optional und hat keinen Einfluss auf Claude Code
 oder Codex.
 
-`.claude/commands/dev.md` und `.codex/commands/dev.md` sind Slash-Command-
-Vorlagen. Sie sorgen dafür, dass `/dev` in Claude Code und ChatGPT Codex als
-direkter Befehl erkannt wird.
+`.claude/commands/dev.md`, `.codex/commands/dev.md`,
+`.claude/commands/dev-changelog.md` und `.codex/commands/dev-changelog.md` sind
+Slash-Command-Vorlagen. Sie sorgen dafür, dass `/dev` und `/dev-changelog` in
+Claude Code und ChatGPT Codex als direkte Befehle erkannt werden.
 
 ## Installation in ChatGPT Codex oder Codex Desktop
 
 Klone das Repository und lege den `dev/`-Ordner in deinen Codex-Skill-Pfad:
 
 ```bash
-git clone https://github.com/MichaelGahnDESIGN/DEV-Skill.git ~/.codex/skills/DEV-Skill
-cp -R ~/.codex/skills/DEV-Skill/dev ~/.codex/skills/dev
+git clone https://github.com/MichaelGahnDESIGN/MGD-DEV-Skill.git ~/.codex/skills/MGD-DEV-Skill
+cp -R ~/.codex/skills/MGD-DEV-Skill/dev ~/.codex/skills/dev
+mkdir -p ~/.codex/commands
+cp ~/.codex/skills/MGD-DEV-Skill/.codex/commands/*.md ~/.codex/commands/
 ```
 
 Manche Installationen nutzen stattdessen einen allgemeinen Agenten-Skill-Ordner:
 
 ```bash
 mkdir -p ~/.agents/skills
-cp -R ~/.codex/skills/DEV-Skill/dev ~/.agents/skills/dev
+cp -R ~/.codex/skills/MGD-DEV-Skill/dev ~/.agents/skills/dev
 ```
 
 **Updates:** Da das Repository geklont wurde, kannst du später einfach updaten:
 
 ```bash
-cd ~/.codex/skills/DEV-Skill && git pull && cp -R dev ~/.codex/skills/dev
+cd ~/.codex/skills/MGD-DEV-Skill && git pull && cp -R dev ~/.codex/skills/dev && mkdir -p ~/.codex/commands && cp .codex/commands/*.md ~/.codex/commands/
 ```
 
 ## Installation in Claude Code
@@ -123,8 +130,10 @@ cd ~/.codex/skills/DEV-Skill && git pull && cp -R dev ~/.codex/skills/dev
 Klone das Repository und lege den `dev/`-Ordner in deinen Claude-Skill-Pfad:
 
 ```bash
-git clone https://github.com/MichaelGahnDESIGN/DEV-Skill.git ~/.claude/skills/DEV-Skill
-cp -R ~/.claude/skills/DEV-Skill/dev ~/.claude/skills/dev
+git clone https://github.com/MichaelGahnDESIGN/MGD-DEV-Skill.git ~/.claude/skills/MGD-DEV-Skill
+cp -R ~/.claude/skills/MGD-DEV-Skill/dev ~/.claude/skills/dev
+mkdir -p ~/.claude/commands
+cp ~/.claude/skills/MGD-DEV-Skill/.claude/commands/*.md ~/.claude/commands/
 ```
 
 Danach kann Claude Code den Skill über das Frontmatter in `dev/SKILL.md`
@@ -133,7 +142,7 @@ erkennen.
 **Updates:**
 
 ```bash
-cd ~/.claude/skills/DEV-Skill && git pull && cp -R dev ~/.claude/skills/dev
+cd ~/.claude/skills/MGD-DEV-Skill && git pull && cp -R dev ~/.claude/skills/dev && mkdir -p ~/.claude/commands && cp .claude/commands/*.md ~/.claude/commands/
 ```
 
 ## Nutzung mit anderen AI-Agenten
@@ -179,10 +188,22 @@ Bereite einen Release-Check vor. Keine Live-Änderungen ohne Rückfrage.
 aber ändere keine Einstellungen und lade keine privaten Dateien hoch.
 ```
 
+```text
+/dev-changelog führe die CHANGELOG.md für die aktuellen Änderungen.
+Nutze Git-Diff und Commits als Quelle, aber schreibe keine Secrets,
+internen Serverpfade oder personenbezogenen Daten hinein.
+```
+
 Ein gut arbeitender Agent sollte dabei zuerst Projektregeln und Dokumentation
 lesen, dann Git- und Projektstände prüfen, Tests vorschlagen oder ausführen und
 Risiken klar benennen. Er sollte nicht sofort deployen, löschen oder produktive
 Systeme verändern.
+
+Bei `/dev-changelog` sollte der Agent fokussiert bleiben: Er sucht oder erstellt
+eine `CHANGELOG.md`, hält das bestehende Format ein und schreibt Änderungen so,
+dass Menschen sie verstehen und spätere Tools sie zuverlässig auslesen können.
+Gute Kategorien sind zum Beispiel `Neu`, `Geändert`, `Behoben`, `Sicherheit`,
+`Technisch` und `Dokumentation`.
 
 ## Ablauf im Skill
 
@@ -197,6 +218,11 @@ Der Skill führt den Agenten durch neun Bereiche:
 7. Cleanup und Backup-Retention vorsichtig behandeln.
 8. Projektwissen und Wissensdokumentation aktualisieren.
 9. Einen kurzen, nachvollziehbaren Abschlussbericht schreiben.
+
+Der Zusatzbefehl `/dev-changelog` nutzt denselben Sicherheitsrahmen, startet
+aber nur den Changelog-Assistenten. Er ist sinnvoll, wenn du nach einer Änderung
+oder vor einem Release die sichtbaren Änderungen dokumentieren möchtest, ohne
+gleich den vollständigen Release-, Backup- oder Deployment-Ablauf zu starten.
 
 Die Reihenfolge ist wichtig. Sie soll verhindern, dass ein Agent zu früh löscht,
 deployed oder Git-Stände überschreibt.
@@ -246,9 +272,10 @@ sauber dokumentiert.
 
 ## Weitere Dokumentation
 
-Im [Wiki](https://github.com/MichaelGahnDESIGN/DEV-Skill/wiki) findest du
+Im [Wiki](https://github.com/MichaelGahnDESIGN/MGD-DEV-Skill/wiki) findest du
 zusätzliche Erklärungen und konkrete Workflows, zum Beispiel für
-Backup-Verwaltung, Speicherplatz sparen, Release-Checks und Browser-Smokes.
+Backup-Verwaltung, Speicherplatz sparen, Release-Checks, Browser-Smokes und
+Changelog-Pflege.
 
 ## Verwandte Projekte Von Michael Gahn DESIGN
 
@@ -349,4 +376,4 @@ Diese Daten dürfen **niemals** die lokale Maschine verlassen — weder nach Git
 - **Sensible Daten:** `.env*` (außer `.env.example`), Tokens, API-Keys, Passwörter, `*.pem`, `*.key`, Zugangsdaten — niemals committen/pushen/deployen.
 - **Push-Disziplin:** Nur den Hauptbranch (`main`) pushen, **niemals** `git push --all`/`--mirror`. `PlayTest*`-Branches werden nie gepusht.
 
-Alle genannten Muster gehören in `.gitignore`. Technische Absicherung: der Pre-Push-Hook aus dem [DEV-Skill](https://github.com/MichaelGahnDESIGN/DEV-Skill) (`dev/hooks/pre-push`) blockiert solche Pushes hart — empfohlen, am besten global via `git config --global core.hooksPath ~/.git-hooks`.
+Alle genannten Muster gehören in `.gitignore`. Technische Absicherung: der Pre-Push-Hook aus dem [DEV-Skill](https://github.com/MichaelGahnDESIGN/MGD-DEV-Skill) (`dev/hooks/pre-push`) blockiert solche Pushes hart — empfohlen, am besten global via `git config --global core.hooksPath ~/.git-hooks`.

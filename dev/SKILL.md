@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use when the user invokes /dev or asks to synchronize any software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, and project knowledge documentation.
+description: Use when the user invokes /dev, /dev-changelog, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, and project knowledge documentation.
 ---
 
 # Dev
@@ -10,6 +10,56 @@ description: Use when the user invokes /dev or asks to synchronize any software 
 Dieser Skill bringt ein Projekt in einen einheitlichen, geprüften Arbeitsstand: lokal, Git/GitHub, Hauptbranch, Entwicklungszweige, Dev/Staging, Live, Backups, Tests und Wissensdokumentation. Er ist für Abschluss-, Aufräum-, Release-, Deploy- und Weiterarbeitsstände in jedem Projekt gedacht.
 
 Der Skill ist projektneutral. Projektname, Stack, Live-/Staging-Ziele, Backup-Pfade, Testbefehle und Dokumentationsorte werden immer aus dem aktuellen Repository, den Projektregeln und der vorhandenen Dokumentation abgeleitet.
+
+## Sonderbefehl `/dev-changelog`
+
+Wenn der Nutzer `/dev-changelog` aufruft oder ausdrücklich einen Changelog-Assistenten möchte, starte einen fokussierten Changelog-Workflow statt des vollständigen `/dev`-Ablaufs.
+
+Ziel: Eine menschlich lesbare und später maschinell gut auswertbare Changelog-Datei führen, aus der später ein Updater, ein Menüpunkt „Änderungen“, ein Notificationcenter oder eine Release-Ansicht gespeist werden kann.
+
+Arbeitsweise:
+
+1. Projektregeln, vorhandene Dokumentation und vorhandene Changelog-Dateien lesen.
+2. Bevorzugte Datei ableiten: zuerst vorhandene `CHANGELOG.md`, sonst dokumentierter Projektpfad, sonst `CHANGELOG.md` im Repository-Stamm vorschlagen oder anlegen.
+3. Vorhandene Änderungen nur aus nachvollziehbaren Quellen ableiten: Git-Diff, Commits, Issues/PRs, Release-Notizen, Aufgabenbeschreibung und Projektdokumentation.
+4. Neue Einträge unter `Unreleased` oder der vom Nutzer genannten Version sammeln.
+5. Einträge klar, kurz und nutzerverständlich schreiben. Jede Änderung soll erklären, was sich für Nutzer, Betreiber oder Entwickler praktisch ändert.
+6. Struktur stabil halten, damit sie später geparst werden kann.
+7. Keine Secrets, Tokens, personenbezogenen Daten, internen Serverpfade, Kundendaten, Zahlungsdaten oder privaten Admin-Details in den Changelog schreiben.
+8. Am Ende berichten, welche Datei geändert wurde, welche Quellen genutzt wurden und welche Punkte unsicher oder offen sind.
+
+Empfohlenes Markdown-Format:
+
+```markdown
+# Changelog
+
+## Unreleased
+
+### Neu
+- ...
+
+### Geändert
+- ...
+
+### Behoben
+- ...
+
+### Sicherheit
+- ...
+
+### Technisch
+- ...
+
+### Dokumentation
+- ...
+
+## 1.2.3 - 2026-06-18
+
+### Neu
+- ...
+```
+
+Wenn ein Projekt bereits ein anderes Changelog-Format nutzt, dieses Format beibehalten und nur vorsichtig ergänzen.
 
 ## Harte Sicherheitsregeln
 
