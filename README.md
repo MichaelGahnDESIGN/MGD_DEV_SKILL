@@ -77,11 +77,13 @@ DEV-Skill/
 ├── .claude/
 │   └── commands/
 │       ├── dev.md
-│       └── dev-changelog.md
+│       ├── dev-changelog.md
+│       └── dev-fast.md
 ├── .codex/
 │   └── commands/
 │       ├── dev.md
-│       └── dev-changelog.md
+│       ├── dev-changelog.md
+│       └── dev-fast.md
 └── dev/
     ├── SKILL.md
     └── agents/
@@ -97,9 +99,11 @@ Tool-Registries). Die Datei ist optional und hat keinen Einfluss auf Claude Code
 oder Codex.
 
 `.claude/commands/dev.md`, `.codex/commands/dev.md`,
-`.claude/commands/dev-changelog.md` und `.codex/commands/dev-changelog.md` sind
-Slash-Command-Vorlagen. Sie sorgen dafür, dass `/dev` und `/dev-changelog` in
-Claude Code und ChatGPT Codex als direkte Befehle erkannt werden.
+`.claude/commands/dev-changelog.md`, `.codex/commands/dev-changelog.md`,
+`.claude/commands/dev-fast.md` und `.codex/commands/dev-fast.md` sind
+Slash-Command-Vorlagen. Sie sorgen dafür, dass `/dev`, `/dev-changelog` und
+`/dev-fast` in Claude Code und ChatGPT Codex als direkte Befehle erkannt
+werden.
 
 ## Installation in ChatGPT Codex oder Codex Desktop
 
@@ -194,6 +198,12 @@ Nutze Git-Diff und Commits als Quelle, aber schreibe keine Secrets,
 internen Serverpfade oder personenbezogenen Daten hinein.
 ```
 
+```text
+/dev-fast mir geht bald das Kontextfenster aus. Zerlege die Aufgabe in
+den kleinsten deploybaren Teilschritt, prüfe nur das Nötigste und geh
+sofort live, statt am Ende alles auf einmal zu sammeln.
+```
+
 Ein gut arbeitender Agent sollte dabei zuerst Projektregeln und Dokumentation
 lesen, dann Git- und Projektstände prüfen, Tests vorschlagen oder ausführen und
 Risiken klar benennen. Er sollte nicht sofort deployen, löschen oder produktive
@@ -223,6 +233,13 @@ Der Zusatzbefehl `/dev-changelog` nutzt denselben Sicherheitsrahmen, startet
 aber nur den Changelog-Assistenten. Er ist sinnvoll, wenn du nach einer Änderung
 oder vor einem Release die sichtbaren Änderungen dokumentieren möchtest, ohne
 gleich den vollständigen Release-, Backup- oder Deployment-Ablauf zu starten.
+
+Der Zusatzbefehl `/dev-fast` nutzt denselben Sicherheitsrahmen, ist aber auf
+Geschwindigkeit statt Gründlichkeit getrimmt: kleinste deploybare Teilschritte,
+minimale Prüfung, sofortiges Commit + Deploy je Schritt. Sinnvoll, wenn nur
+noch wenig Kontextfenster oder Nutzungslimit übrig ist und trotzdem etwas
+Fertiges live gehen soll — nutze stattdessen `/dev`, wenn genug Budget für
+einen vollständig geprüften Release da ist.
 
 Die Reihenfolge ist wichtig. Sie soll verhindern, dass ein Agent zu früh löscht,
 deployed oder Git-Stände überschreibt.
