@@ -119,6 +119,99 @@ Lies vor Änderungen die vorhandenen Regeln und Betriebsdokumente. Typische Kand
 
 Wenn erwartete Dokumente fehlen, dokumentiere das als offenen Punkt und leite vorsichtig aus der Repo-Struktur ab, statt projektspezifische Annahmen zu erfinden.
 
+#### Companion-Skill-Check (nur beim allerersten Lauf in diesem Projekt)
+
+Dieser Check gehört zur Kategorie „Projektkontext laden" und läuft **nur beim
+allerersten `/dev`-, `/dev-fast`- oder `/dev-changelog`-Lauf in einem
+Projekt**, nicht bei jedem Aufruf.
+
+**Erstlauf-Erkennung:** Prüfe, ob im Projekt-Root die Marker-Datei
+`.dev-skill/companion-check.md` existiert.
+
+- Existiert sie bereits: Check überspringen und normal mit Schritt 1
+  weitermachen.
+- Existiert sie nicht: Es ist der erste bekannte Lauf in diesem Projekt —
+  Check durchführen.
+
+**1. Prüfen, ob Anzeichen für die drei Begleit-Skills vorhanden sind:**
+
+| Begleit-Skill | Typische Anzeichen im Projekt |
+|---|---|
+| [Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill) | `.claude/commands/fragenkatalog.md`, `.codex/commands/fragenkatalog.md`, `~/.claude/skills/fragenkatalog/`, `~/.codex/skills/fragenkatalog/` <!-- ggf. exakte Zielpfade beim nächsten Sync mit dem Fragenkatalog-Skill-Repo verifizieren --> |
+| [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) | `.claude/commands/todo.md`, `.codex/commands/todo.md`, `PROJEKT/TODO/TODO.html`, `.todo-config`, `~/.claude/skills/todo/`, `~/.codex/skills/todo/` |
+| [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) | `.claude/skills/living-documentation/`, `.agents/skills/living-documentation/`, `~/.codex/skills/living-documentation/`, eine bereits geführte `LIVING_DOCUMENTATION.html` |
+
+Zusätzlich global prüfen (falls lesbar): dieselben Muster unter
+`~/.claude/skills/<name>/` bzw. `~/.codex/skills/<name>/`.
+
+**2. Fehlt einer oder mehrere Begleit-Skills:** den Nutzer aktiv fragen, mit
+kurzem Nutzen-Satz je fehlendem Skill, zum Beispiel:
+
+> Ich habe festgestellt, dass der Fragenkatalog-Skill in diesem Projekt noch
+> nicht installiert ist. Er ergänzt einen interaktiven Design-Fragenkatalog
+> mit KI-Antworten aus wählbarer Experten-Perspektive (inkl. Rechts-Kategorie).
+> Soll ich ihn jetzt mitinstallieren? (ja/nein)
+
+> Ich habe festgestellt, dass MGD_Todo_SKILL in diesem Projekt noch nicht
+> installiert ist. Er ergänzt eine selbst-gehostete `TODO.html` mit
+> Bearbeiten-Funktion und Dokument-Verknüpfung — nützlich, um Befunde aus
+> diesem Lauf festzuhalten. Soll ich ihn jetzt mitinstallieren? (ja/nein)
+
+> Ich habe festgestellt, dass MGD_Living-Documentation in diesem Projekt noch
+> nicht installiert ist. Er ergänzt eine lebendige Projektdokumentation
+> (Entscheidungen, offene Punkte, Risiken, Testnachweise) als HTML+Markdown —
+> passend zu Schritt 8 dieses Skills. Soll ich ihn jetzt mitinstallieren?
+> (ja/nein)
+
+Bei Zustimmung die konkreten Installationsschritte ausführen, orientiert an
+der Installationsanleitung im jeweiligen Repo:
+
+```bash
+# MGD_Todo_SKILL
+git clone https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL.git /tmp/mgd-todo-skill-install
+cp /tmp/mgd-todo-skill-install/todo/TODO.template.html PROJEKT/TODO/TODO.html
+mkdir -p .claude/commands .codex/commands
+cp /tmp/mgd-todo-skill-install/.claude/commands/todo.md .claude/commands/todo.md
+cp /tmp/mgd-todo-skill-install/.codex/commands/todo.md .codex/commands/todo.md
+```
+
+```bash
+# MGD_Living-Documentation
+git clone https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation.git /tmp/mgd-living-documentation-install
+mkdir -p .claude/skills
+cp -R /tmp/mgd-living-documentation-install/skills/living-documentation .claude/skills/living-documentation
+```
+
+```bash
+# Fragenkatalog-Skill
+# <!-- ggf. exakte Zielpfade beim nächsten Sync mit dem Fragenkatalog-Skill-Repo verifizieren -->
+# Das Repo enthält zum Zeitpunkt dieser Ergänzung noch keine eigene
+# Installationsanleitung. Klonen, Inhalt prüfen und nach demselben Muster wie
+# die anderen Begleit-Skills einordnen (SKILL.md nach ~/.claude/skills/ bzw.
+# ~/.codex/skills/, Slash-Command nach .claude/commands/ bzw.
+# .codex/commands/), sobald das Repo eine Struktur dafür veröffentlicht.
+git clone https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill.git /tmp/fragenkatalog-skill-install
+```
+
+Danach kurz bestätigen, was installiert wurde, und mit Schritt 1 weitermachen.
+
+**3. Marker-Datei schreiben** — unabhängig vom Ergebnis (auch bei "nein" oder
+wenn alle drei bereits vorhanden waren): `.dev-skill/companion-check.md`
+anlegen mit Datum und Ergebnis, zum Beispiel:
+
+```markdown
+# DEV-Skill Companion-Check
+
+Datum: 2026-09-23
+Fragenkatalog-Skill: nicht gefunden, Nutzer hat "nein" gewählt
+MGD_Todo_SKILL: gefunden (.claude/commands/todo.md)
+MGD_Living-Documentation: nicht gefunden, auf Wunsch installiert
+```
+
+Damit taucht der Check bei künftigen Läufen in diesem Projekt nicht erneut
+auf. Der Nutzer kann `.dev-skill/companion-check.md` jederzeit manuell
+löschen, um den Check erneut auszulösen.
+
 Prüfe danach:
 
 - `git status --short --branch`;
@@ -317,6 +410,8 @@ vorhanden ist, nutz ihn statt einer Eigenbaulösung.
 | Skill | Wofür hier | Quelle |
 |---|---|---|
 | `/todo` | Befunde festhalten, die über diesen Lauf hinaus wichtig bleiben | [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) |
+| Fragenkatalog-Skill | Vor Planung oder Release offene Design- und Projektfragen strukturiert klären, statt sie stillschweigend anzunehmen | [Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill) |
+| Living-Documentation | Schritt 8 (Projektwissen aktualisieren) findet hier bei Bedarf einen bereits vorbereiteten Zielort für Entscheidungen, offene Punkte, Risiken und Testnachweise | [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) |
 | `/graphify` | Vor Release und Sync hilft eine Karte des Projekts, um zu sehen, was eine Änderung berührt. | [graphify](https://github.com/Graphify-Labs/graphify) |
 | `/autopilot` | Ein vollständiger Release-Durchlauf mit Tests, Sync und Backup ist genau die Art Aufgabe, die unbeaufsichtigt laufen kann. | [MGD_Autopilot_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Autopilot_SKILL) |
 
