@@ -50,6 +50,34 @@ Er ist bewusst vorsichtig formuliert. Wenn es um Produktivsysteme, Datenbanken,
 Uploads, Admin-Bereiche, Zahlungen oder personenbezogene Daten geht, soll der
 Agent lieber einmal mehr nachweisen, was er tut, als einmal zu schnell handeln.
 
+## Empfohlene Begleit-Skills
+
+Der DEV-Skill spielt bewusst mit drei weiteren Skills von Michael Gahn DESIGN
+zusammen, die im selben Projekt oft sinnvoll sind:
+
+- **[Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill)**
+  — interaktiver Design-Fragenkatalog mit KI-Antworten aus wählbarer
+  Experten-Perspektive, inklusive Rechts-Kategorie.
+- **[MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL)**
+  — selbst-gehostete `TODO.html` mit Bearbeiten-Funktion und
+  Dokument-Verknüpfung.
+- **[MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation)**
+  — lebendige Projektdokumentation (Entscheidungen, offene Punkte, Risiken,
+  Testnachweise) als HTML+Markdown.
+
+Keiner davon ist Voraussetzung für den DEV-Skill — er funktioniert auch ganz
+allein. Wo sie aber vorhanden sind, ergänzen sie sich: der DEV-Skill prüft
+Stände, Tests und Deployments, das Todo hält offene Befunde fest, die
+Living-Documentation dokumentiert Entscheidungen und Risiken dauerhaft, und
+der Fragenkatalog klärt offene Design- und Projektfragen, bevor sie zu
+stillschweigenden Annahmen werden.
+
+Beim **allerersten** `/dev`-, `/dev-fast`- oder `/dev-changelog`-Lauf in
+einem Projekt prüft der Skill aktiv, welche dieser Begleit-Skills bereits
+installiert sind, und fragt bei fehlenden nach, ob sie mitinstalliert werden
+sollen — siehe `dev/SKILL.md`, Abschnitt „Companion-Skill-Check". Bei jedem
+weiteren Lauf im selben Projekt wird nicht erneut gefragt.
+
 ## Grundprinzipien
 
 Der Skill folgt ein paar einfachen Prinzipien:
@@ -297,28 +325,8 @@ Changelog-Pflege.
 ## Verwandte Projekte Von Michael Gahn DESIGN
 
 Der DEV-Skill gehört zu einer kleinen Werkzeugfamilie für KI-gestützte
-Projektarbeit.
-
-- [AI-Basic-Projektordner](https://github.com/MichaelGahnDESIGN/MGD_AI-Basic-Projektordner_TOOL)  
-  Eine saubere Projektvorlage mit Regeln, Dokumentation, Agentenstruktur und
-  Sicherheitsgrenzen. Sinnvoll als Basis für neue Projekte.
-
-- [AI Project Updater Skill](https://github.com/MichaelGahnDESIGN/MGD_AI-Project-Updater_SKILL)  
-  Ein geführter Assistent für lokale Staging-Umgebungen, Docker-Planung,
-  Update-Vorbereitung und sichere Staging-zu-Live-Abläufe. Das Repository ist
-  während der Entwicklung zunächst privat.
-
-- [ProjectClean-Skill](https://github.com/MichaelGahnDESIGN/MGD_ProjectClean_SKILL)  
-  Ein Abschluss- und Aufräum-Skill für Versionen, Tests, Commits, Backups,
-  Dokumentation und vorsichtiges Cleanup.
-
-- [AI-PlayTest-Skill](https://github.com/MichaelGahnDESIGN/MGD_AI-PlayTest_SKILL)  
-  Ein Skill für Play-Tests aus Sicht echter Nutzerrollen, lokal, auf Staging
-  oder vorsichtig auf Live.
-
-- [Claude-Codex-MCP](https://github.com/MichaelGahnDESIGN/MGD_Claude-Codex_MCP)  
-  Ein lokales MCP-System für Aufgaben, Chat und Übergaben zwischen Claude,
-  Codex und weiteren KI-Agenten.
+Projektarbeit. Die vollständige Liste mit Beschreibung und Zusammenspiel
+steht weiter unten im Abschnitt „Verwandte MGD Projekte".
 
 ## Beiträge und Forks
 
@@ -382,14 +390,25 @@ Alle genannten Muster gehören in `.gitignore`. Technische Absicherung: der Pre-
 
 ## Verwandte MGD Projekte
 
+Direkte Begleit-Skills (siehe auch „Empfohlene Begleit-Skills" oben):
+
+| Projekt | Beschreibung | Warum gut mit DEV_SKILL |
+|---------|-------------|--------------------------|
+| [Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill) | Interaktiver Design-Fragenkatalog mit KI-Antworten aus wählbarer Experten-Perspektive, inkl. Rechts-Kategorie | Offene Design- und Projektfragen vor einem Release klären, statt sie stillschweigend anzunehmen |
+| [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) | Selbst-gehostete `TODO.html` mit Bearbeiten-Funktion und Dokument-Verknüpfung | Vor jedem Release `/todo` prüfen — Befunde aus dem DEV-Lauf, die über die Session hinaus wichtig bleiben, landen hier |
+| [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) | Lebendige Projektdokumentation (Entscheidungen, offene Punkte, Risiken, Testnachweise) als HTML+Markdown | Vor jedem Release den Living-Documentation-Stand prüfen — Schritt 8 des DEV-Skills (Projektwissen aktualisieren) findet hier einen vorbereiteten Zielort |
+
+Weitere Projekte aus derselben Werkzeugfamilie:
+
 | Projekt | Beschreibung |
 |---------|-------------|
-| [MGD_AI-Basic-Projektordner_TOOL](https://github.com/MichaelGahnDESIGN/MGD_AI-Basic-Projektordner_TOOL) | Projektvorlage für KI-Agenten |
+| [MGD_AI-Basic-Projektordner_TOOL](https://github.com/MichaelGahnDESIGN/MGD_AI-Basic-Projektordner_TOOL) | Projektvorlage für KI-Agenten mit Regeln, Dokumentation, Agentenstruktur und Sicherheitsgrenzen |
 | [MGD_Software-Updater_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Software-Updater_SKILL) | Software-Update-Systeme planen und implementieren |
 | [MGD_BugReport_SKILL](https://github.com/MichaelGahnDESIGN/MGD_BugReport_SKILL) | Feedback-Hub: Bug-Meldung, Ideen und Support |
-| [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) | Aufgabenmanagement direkt im Projekt-Repo |
-| [MGD_ProjectClean_SKILL](https://github.com/MichaelGahnDESIGN/MGD_ProjectClean_SKILL) | Abschluss- und Aufräum-Workflow |
-| [MGD_AI-Project-Updater_SKILL](https://github.com/MichaelGahnDESIGN/MGD_AI-Project-Updater_SKILL) | Geführter Projekt-Assistent für Staging und Updates |
+| [MGD_ProjectClean_SKILL](https://github.com/MichaelGahnDESIGN/MGD_ProjectClean_SKILL) | Abschluss- und Aufräum-Workflow für Versionen, Tests, Commits, Backups und Dokumentation |
+| [MGD_AI-Project-Updater_SKILL](https://github.com/MichaelGahnDESIGN/MGD_AI-Project-Updater_SKILL) | Geführter Projekt-Assistent für lokale Staging-Umgebungen, Docker-Planung und Updates (Repository während der Entwicklung zunächst privat) |
+| [MGD_AI-PlayTest_SKILL](https://github.com/MichaelGahnDESIGN/MGD_AI-PlayTest_SKILL) | Play-Tests aus Sicht echter Nutzerrollen, lokal, auf Staging oder vorsichtig auf Live |
+| [MGD_Claude-Codex_MCP](https://github.com/MichaelGahnDESIGN/MGD_Claude-Codex_MCP) | Lokales MCP-System für Aufgaben, Chat und Übergaben zwischen Claude, Codex und weiteren KI-Agenten |
 
 → Alle öffentlichen Projekte: [github.com/MichaelGahnDESIGN](https://github.com/MichaelGahnDESIGN)
 
