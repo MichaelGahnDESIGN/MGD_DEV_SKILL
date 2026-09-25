@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="MGD DEV">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b3df5"/><stop offset="1" stop-color="#2b7bff"/></linearGradient>
+    <radialGradient id="glow" cx=".85" cy=".1" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <clipPath id="c"><rect width="1280" height="320" rx="24"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="1280" height="320" fill="url(#g)"/>
+    <rect width="1280" height="320" fill="url(#glow)"/>
+  <line x1="329" y1="188" x2="265" y2="258" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="329" y1="188" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="265" y1="258" x2="157" y2="251" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="265" y1="258" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="157" y1="251" x2="73" y2="182" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="157" y1="251" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="73" y1="182" x2="93" y2="93" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="73" y1="182" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="93" y1="93" x2="220" y2="55" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="93" y1="93" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="220" y1="55" x2="302" y2="98" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="220" y1="55" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="302" y1="98" x2="329" y2="188" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="302" y1="98" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="200" y1="160" x2="265" y2="258" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <line x1="200" y1="160" x2="200" y2="160" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <circle cx="329" cy="188" r="6" fill="#fff" fill-opacity=".28"/>
+  <circle cx="265" cy="258" r="11" fill="#fff" fill-opacity=".28"/>
+  <circle cx="157" cy="251" r="6" fill="#fff" fill-opacity=".28"/>
+  <circle cx="73" cy="182" r="7" fill="#fff" fill-opacity=".28"/>
+  <circle cx="93" cy="93" r="10" fill="#fff" fill-opacity=".28"/>
+  <circle cx="220" cy="55" r="7" fill="#fff" fill-opacity=".28"/>
+  <circle cx="302" cy="98" r="6" fill="#fff" fill-opacity=".28"/>
+  <circle cx="200" cy="160" r="11" fill="#fff" fill-opacity=".28"/>
+    <text x="420" y="140" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="78" font-weight="700" fill="#fff" letter-spacing="-1">MGD DEV</text>
+    <text x="422" y="196" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="23" fill="#fff" fill-opacity=".86">Projektneutraler DEV-Skill für Release, Sync,</text><text x="422" y="226" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="23" fill="#fff" fill-opacity=".86">Backup, Cleanup, Tests und Wissensdokumentation.</text>
+    <rect x="422" y="266" width="218" height="30" rx="15" fill="#fff" fill-opacity=".18"/>
+    <text x="436" y="287" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="600" fill="#fff">Skill für KI-Agenten</text>
+  </g>
+</svg>
