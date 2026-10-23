@@ -29,7 +29,11 @@ Die geltenden Projektregeln und der tatsächliche Auftrag bestimmen den Umfang.
 6. Sobald ein Schritt geprüft und nutzbar ist: nachvollziehbar committen und nach
    autorisiertem Projektverfahren veröffentlichen. Mit dem nächsten Schritt direkt
    weitermachen, bis der Auftrag erledigt ist. Ein Teilergebnis beendet den Auftrag nicht.
-7. Doku, Todo, Version und ggf. lokalen Graph synchronisieren. Kurz berichten:
+7. Umfasst der Auftrag einen Release, Version und Changelog abstimmen, den
+   geprüften Commit taggen und den GitHub-Release samt vorgesehenem Paket wirklich
+   veröffentlichen. Tag, Commit und heruntergeladenes Paket prüfen. Falls `/dev`
+   installiert ist, dessen Release-Ablauf verwenden; ein Commit allein ist kein Release.
+8. Doku, Todo, Version und ggf. lokalen Graph synchronisieren. Kurz berichten:
    sichtbar geändert, gezielt geprüft, Commit/Deployment, Rückfallpunkt, echte Restpunkte.
 
 Bei einem Fehler nur die betroffene Ursache bearbeiten und die passende Prüfung

@@ -2,6 +2,23 @@
 
 Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
+## 1.4.0 - 2026-10-23
+
+### Neu
+
+- Eigenständigen `/fast-dev`-Begleit-Skill in den veröffentlichten Paketumfang aufgenommen, einschließlich Befehlsvorlagen für Claude Code und Codex.
+- `/dev` um vollständige Release-Erstellung ergänzt: Version, Changelog, freigegebener Commit, Paket, Tag, GitHub-Release und Download-Prüfsumme.
+- Installation, Updates, README und Wiki für beide Skills dokumentiert; `/dev-fast` bleibt kompatibel.
+
+### Behoben
+
+- Mehrzeilige Skill-Beschreibung als gültiges YAML ausgezeichnet, damit `/dev` zuverlässig erkannt werden kann.
+
+### Sicherheit
+
+- Release-Veröffentlichung und Website-Deployment getrennt; bestehende Freigaben gelten weiter.
+- Pakete aus ausgewählten Produktdateien, keine Secrets, Sicherungen oder lokalen Testdaten.
+
 ## 1.3.0 - 2026-09-23
 
 ### Neu
@@ -55,8 +72,3 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 ### Neu
 
 - Erste veröffentlichte Version des DEV-Skills mit Slash-Command-Vorlagen.
-
-## Unreleased – Fast-dev
-
-- Eigenständiger `/fast-dev`-Skill mit kurzem Playbook und gezielten Prüfungen.
-- `/dev` und README verweisen auf den zusätzlichen Ablauf; `/dev-fast` bleibt erhalten.

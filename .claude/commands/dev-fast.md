@@ -43,6 +43,9 @@ Dieselben wie bei `/dev` — unverändert und ohne Ausnahme:
 - Keine `git reset --hard`, Backup-Löschung oder Live-Änderungen ohne vorheriges geprüftes Backup.
 - Keine produktiven Zahlungen, Löschungen oder E-Mail-Versandaktionen ohne ausdrückliche Freigabe.
 
+Ein ausdrücklich beauftragter Release wird mit Version, Tag, GitHub-Release und
+geprüftem Downloadpaket abgeschlossen; siehe Release-Ablauf in `dev/SKILL.md`.
+
 ## Ergebnis
 
 Nach jedem Teilschritt kurz berichten:

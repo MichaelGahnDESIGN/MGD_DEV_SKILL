@@ -119,12 +119,15 @@ DEV-Skill/
 │   └── commands/
 │       ├── dev.md
 │       ├── dev-changelog.md
-│       └── dev-fast.md
+│       ├── dev-fast.md
+│       └── fast-dev.md
 ├── .codex/
 │   └── commands/
 │       ├── dev.md
 │       ├── dev-changelog.md
-│       └── dev-fast.md
+│       ├── dev-fast.md
+│       └── fast-dev.md
+├── fast-dev/                 ← Eigenständiger Begleit-Skill mit MIT-Lizenz
 └── dev/
     ├── SKILL.md
     └── agents/
@@ -142,9 +145,10 @@ oder Codex.
 `.claude/commands/dev.md`, `.codex/commands/dev.md`,
 `.claude/commands/dev-changelog.md`, `.codex/commands/dev-changelog.md`,
 `.claude/commands/dev-fast.md` und `.codex/commands/dev-fast.md` sind
-Slash-Command-Vorlagen. Sie sorgen dafür, dass `/dev`, `/dev-changelog` und
-`/dev-fast` in Claude Code und ChatGPT Codex als direkte Befehle erkannt
-werden.
+Befehlsvorlagen; `fast-dev.md` ergänzt den eigenständigen Begleit-Skill.
+Claude Code unterstützt eigene Slash-Commands. In Codex die installierten Skills
+mit `$dev` beziehungsweise `$fast-dev` aufrufen; `.codex/commands` ist eine
+Vorlage für Umgebungen, die eigene Commands unterstützen.
 
 ## Installation in ChatGPT Codex oder Codex Desktop
 
@@ -153,6 +157,7 @@ Klone das Repository und lege den `dev/`-Ordner in deinen Codex-Skill-Pfad:
 ```bash
 git clone https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL.git ~/.codex/skills/MGD-DEV-Skill
 cp -R ~/.codex/skills/MGD-DEV-Skill/dev ~/.codex/skills/dev
+cp -R ~/.codex/skills/MGD-DEV-Skill/fast-dev ~/.codex/skills/fast-dev
 mkdir -p ~/.codex/commands
 cp ~/.codex/skills/MGD-DEV-Skill/.codex/commands/*.md ~/.codex/commands/
 ```
@@ -162,12 +167,13 @@ Manche Installationen nutzen stattdessen einen allgemeinen Agenten-Skill-Ordner:
 ```bash
 mkdir -p ~/.agents/skills
 cp -R ~/.codex/skills/MGD-DEV-Skill/dev ~/.agents/skills/dev
+cp -R ~/.codex/skills/MGD-DEV-Skill/fast-dev ~/.agents/skills/fast-dev
 ```
 
 **Updates:** Da das Repository geklont wurde, kannst du später einfach updaten:
 
 ```bash
-cd ~/.codex/skills/MGD-DEV-Skill && git pull && cp -R dev ~/.codex/skills/dev && mkdir -p ~/.codex/commands && cp .codex/commands/*.md ~/.codex/commands/
+cd ~/.codex/skills/MGD-DEV-Skill && git pull --ff-only && cp -R dev ~/.codex/skills/dev && cp -R fast-dev ~/.codex/skills/fast-dev && mkdir -p ~/.codex/commands && cp .codex/commands/*.md ~/.codex/commands/
 ```
 
 ## Installation in Claude Code
@@ -177,6 +183,7 @@ Klone das Repository und lege den `dev/`-Ordner in deinen Claude-Skill-Pfad:
 ```bash
 git clone https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL.git ~/.claude/skills/MGD-DEV-Skill
 cp -R ~/.claude/skills/MGD-DEV-Skill/dev ~/.claude/skills/dev
+cp -R ~/.claude/skills/MGD-DEV-Skill/fast-dev ~/.claude/skills/fast-dev
 mkdir -p ~/.claude/commands
 cp ~/.claude/skills/MGD-DEV-Skill/.claude/commands/*.md ~/.claude/commands/
 ```
@@ -187,7 +194,7 @@ erkennen.
 **Updates:**
 
 ```bash
-cd ~/.claude/skills/MGD-DEV-Skill && git pull && cp -R dev ~/.claude/skills/dev && mkdir -p ~/.claude/commands && cp .claude/commands/*.md ~/.claude/commands/
+cd ~/.claude/skills/MGD-DEV-Skill && git pull --ff-only && cp -R dev ~/.claude/skills/dev && cp -R fast-dev ~/.claude/skills/fast-dev && mkdir -p ~/.claude/commands && cp .claude/commands/*.md ~/.claude/commands/
 ```
 
 ## Nutzung mit anderen AI-Agenten
@@ -409,7 +416,7 @@ Direkte Begleit-Skills (siehe auch „Empfohlene Begleit-Skills" oben):
 |---------|-------------|--------------------------|
 | [Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill) | Interaktiver Design-Fragenkatalog mit KI-Antworten aus wählbarer Experten-Perspektive, inkl. Rechts-Kategorie | Offene Design- und Projektfragen vor einem Release klären, statt sie stillschweigend anzunehmen |
 | [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) | Selbst-gehostete `TODO.html` mit Bearbeiten-Funktion und Dokument-Verknüpfung | Vor jedem Release `/todo` prüfen — Befunde aus dem DEV-Lauf, die über die Session hinaus wichtig bleiben, landen hier |
-| [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) | Lebendige Projektdokumentation (Entscheidungen, offene Punkte, Risiken, Testnachweise) als HTML+Markdown | Vor jedem Release den Living-Documentation-Stand prüfen — Schritt 8 des DEV-Skills (Projektwissen aktualisieren) findet hier einen vorbereiteten Zielort |
+| [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) | Lebendige Projektdokumentation (Entscheidungen, offene Punkte, Risiken, Testnachweise) als HTML+Markdown | Vor jedem Release den Living-Documentation-Stand prüfen — Schritt 9 des DEV-Skills (Projektwissen aktualisieren) findet hier einen vorbereiteten Zielort |
 
 Weitere Projekte aus derselben Werkzeugfamilie:
 
@@ -471,7 +478,7 @@ Tel.: +49 (0) 151 59156639
 E-Mail: Anfrage@Michael-Gahn.de
 <!-- /MGD-LEGAL -->
 
-## Schnell umsetzen mit `/fast-dev`
+## Schnell umsetzen mit `/fast-dev` · ab v1.4.0
 
 Der zusätzliche [Fast-dev-Skill](fast-dev/SKILL.md) arbeitet ein kurzes Playbook
 in kleinen nutzbaren Schritten ab: gezielt lesen, vorhandene Bausteine nutzen,
@@ -481,3 +488,23 @@ Keine vollständigen Testschleifen ohne Anlass; Sicherheitsgrenzen bleiben erhal
 Installation: Den Ordner `fast-dev` zusätzlich zum Ordner `dev` in das Skills-Verzeichnis
 des verwendeten Agenten kopieren. Codex: `$fast-dev`, Claude Code: `/fast-dev`.
 Der bestehende `/dev-fast`-Modus bleibt verfügbar.
+
+
+## Release-Versionen veröffentlichen · ab v1.4.0
+
+`/dev` schließt einen beauftragten Release jetzt mit konsistenter Version,
+Changelog, geprüftem Paket, neuem Tag und tatsächlichem GitHub-Release ab.
+Der Agent prüft die Zuordnung zum freigegebenen Commit und lädt das Paket zur
+Prüfsummenkontrolle erneut herunter. README und Wiki werden mitgepflegt.
+Reine Release-Vorbereitung veröffentlicht nichts; ein Website-Deployment bleibt
+an den eigenen Auftrag und Rückfallweg gebunden. Das gilt auch bei `/fast-dev`.
+
+- [Release-Ablauf im Skill](dev/SKILL.md#6-release-version-und-github-release-erstellen)
+- [Fast-dev im Wiki](https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL/wiki/Workflow-Fast-Dev)
+- [Release-Erstellung im Wiki](https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL/wiki/Workflow-Release-Erstellen)
+- [Release v1.4.0](https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL/releases/tag/v1.4.0)
+
+Das Release-ZIP enthält `dev/`, `fast-dev/`, die Befehlsvorlagen und Lizenzen.
+Installation in einem leeren Ziel durchführen; vorhandene lokale Anpassungen
+vor einem manuellen Update sichern. Gleichnamige Fast-dev-Kopien aus mehreren
+MGD-Repositories nur einmal als `fast-dev` installieren.
