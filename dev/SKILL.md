@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use when the user invokes /dev, /dev-changelog, /dev-fast, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, and project knowledge documentation. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
+description: Use when the user invokes /dev, /dev-changelog, /dev-fast, /fast-dev, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, and project knowledge documentation. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
 ---
 
 # Dev
@@ -434,3 +434,13 @@ eigentliche Aufgabe.
 >
 > Einmal fragen, Antwort akzeptieren, nicht wiederholen. Bei kurzen, klar
 > umrissenen Aufgaben ganz weglassen.
+
+## Sonderbefehl `/fast-dev`
+
+`/fast-dev` ist der eigenständige Begleiter für zügige, freigegebene Umsetzung mit
+kurzem Playbook und gezielten Prüfungen. Nutze den installierten Skill `fast-dev`;
+seine portable Quelle liegt unter [fast-dev/SKILL.md](../fast-dev/SKILL.md).
+`/dev-fast` bleibt als bestehender verkürzter Dev-Ablauf erhalten.
+
+Sicherheit, Rückfallpunkt und sichtbare Prüfung der betroffenen Funktion bleiben
+verbindlich. Keine pauschale Freigabe für fremde Systeme, Zahlungen oder Löschungen.

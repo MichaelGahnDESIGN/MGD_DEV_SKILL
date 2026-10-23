@@ -470,3 +470,14 @@ Deutschland
 Tel.: +49 (0) 151 59156639  
 E-Mail: Anfrage@Michael-Gahn.de
 <!-- /MGD-LEGAL -->
+
+## Schnell umsetzen mit `/fast-dev`
+
+Der zusätzliche [Fast-dev-Skill](fast-dev/SKILL.md) arbeitet ein kurzes Playbook
+in kleinen nutzbaren Schritten ab: gezielt lesen, vorhandene Bausteine nutzen,
+betroffene Funktion prüfen, kontrolliert deployen und direkt weiterarbeiten.
+Keine vollständigen Testschleifen ohne Anlass; Sicherheitsgrenzen bleiben erhalten.
+
+Installation: Den Ordner `fast-dev` zusätzlich zum Ordner `dev` in das Skills-Verzeichnis
+des verwendeten Agenten kopieren. Codex: `$fast-dev`, Claude Code: `/fast-dev`.
+Der bestehende `/dev-fast`-Modus bleibt verfügbar.

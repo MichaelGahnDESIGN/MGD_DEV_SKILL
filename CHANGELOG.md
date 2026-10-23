@@ -55,3 +55,8 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 ### Neu
 
 - Erste veröffentlichte Version des DEV-Skills mit Slash-Command-Vorlagen.
+
+## Unreleased – Fast-dev
+
+- Eigenständiger `/fast-dev`-Skill mit kurzem Playbook und gezielten Prüfungen.
+- `/dev` und README verweisen auf den zusätzlichen Ablauf; `/dev-fast` bleibt erhalten.
