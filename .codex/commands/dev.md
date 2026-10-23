@@ -11,10 +11,11 @@ Nutze `dev/SKILL.md` aus diesem Repository als Arbeitsgrundlage und führe den A
 3. Git, Branches und Remotes einordnen
 4. Tests, Builds und allgemeine Checks ausführen
 5. Browser- und Playwright-Smokes sicher prüfen
-6. Deploy auf Dev/Staging und Live nur mit Backup und Rückfallplan
-7. Cleanup und Backup-Retention vorsichtig behandeln
-8. Projektwissen und Dokumentation aktualisieren
-9. Abschlussbericht schreiben
+6. Release-Version, Changelog und Paket abstimmen; bei beauftragter Veröffentlichung Tag und GitHub-Release erstellen und verifizieren
+7. Deploy auf Dev/Staging und Live nur im freigegebenen Umfang mit Backup und Rückfallplan
+8. Cleanup und Backup-Retention vorsichtig behandeln
+9. Projektwissen und Dokumentation aktualisieren
+10. Abschlussbericht mit Release-URL, Version und Commit schreiben
 
 ## Sicherheitsregeln
 
@@ -29,7 +30,7 @@ Nutze `dev/SKILL.md` aus diesem Repository als Arbeitsgrundlage und führe den A
 Am Ende kurz berichten:
 
 - Projektname, aktueller Commit und Branch
-- GitHub-/Remote-Stand
+- GitHub-/Remote-Stand sowie Release-Version, Tag, Commit und Release-URL
 - ausgeführte Tests und Browser-Smokes
 - Backup-Pfad und Hashprüfung
 - Deploy- oder Cleanup-Aktionen

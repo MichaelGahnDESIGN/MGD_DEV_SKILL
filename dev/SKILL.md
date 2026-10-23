@@ -1,6 +1,7 @@
 ---
 name: dev
-description: Use when the user invokes /dev, /dev-changelog, /dev-fast, /fast-dev, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, and project knowledge documentation. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
+description: >-
+  Use when the user invokes /dev, /dev-changelog, /dev-fast, /fast-dev, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, versioning, GitHub releases, and project knowledge documentation. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
 ---
 
 # Dev
@@ -160,7 +161,7 @@ kurzem Nutzen-Satz je fehlendem Skill, zum Beispiel:
 > Ich habe festgestellt, dass MGD_Living-Documentation in diesem Projekt noch
 > nicht installiert ist. Er ergänzt eine lebendige Projektdokumentation
 > (Entscheidungen, offene Punkte, Risiken, Testnachweise) als HTML+Markdown —
-> passend zu Schritt 8 dieses Skills. Soll ich ihn jetzt mitinstallieren?
+> passend zu Schritt 9 dieses Skills. Soll ich ihn jetzt mitinstallieren?
 > (ja/nein)
 
 Bei Zustimmung die konkreten Installationsschritte ausführen, orientiert an
@@ -307,7 +308,47 @@ Berichte Browser-Ergebnisse knapp mit:
 - Screenshot-Pfad oder bewusster Verzicht auf Screenshots;
 - offenen Risiken, zum Beispiel fehlender Login, privates Repository, nicht erreichbares Staging oder fehlende Testdaten.
 
-### 6. Deploy auf Dev/Staging und Live
+### 6. Release-Version und GitHub-Release erstellen
+
+Bei einem Auftrag zur Veröffentlichung gehört ein **tatsächlich veröffentlichter
+Release** zum Ergebnis. Ein Versions-Bump, Commit oder Tag allein genügt nicht.
+Bei reiner Vorbereitung den fertigen Entwurf bereitstellen; vorhandene Freigaben
+nutzen, aber aus dem Aufruf `/dev` keine zusätzliche Veröffentlichungsfreigabe ableiten.
+
+1. **Version ableiten:** Projektkonvention, vorhandene Tags und Releases prüfen.
+   Die nächste freie SemVer-Version beziehungsweise den etablierten Versionskanal
+   wählen. Die maßgebliche Versionsquelle (z. B. Paketdatei, Plugin-Header oder
+   Theme-`style.css`) verwenden und weitere Versionsangaben, Changelog und
+   Release-Notizen konsistent halten. Keine neue Versionsdatei ohne Bedarf erfinden.
+2. **Release-Stand festlegen:** Nur die zum Auftrag gehörenden Änderungen committen,
+   erforderliche Prüfungen abschließen und nach dem vorhandenen PR-/Merge-Verfahren
+   integrieren. Den freigegebenen Commit als Release-Ziel festhalten. Für reine
+   Skill-/Dokumentations-Releases ist der vorherige Git-/Release-Stand der Rückweg;
+   ohne Änderungen am Betrieb ist kein Datenbank-Backup nötig.
+3. **Paket prüfen:** Falls ein Downloadpaket zum Projekt gehört, nur ausdrücklich
+   ausgewählte Produktdateien aus diesem Commit packen. Archive entpacken und
+   Einstiegspunkte, Begleit-Skills, Lizenzen und Installationspfade prüfen.
+   Secrets, Sicherungen, Testdaten und lokale Konfiguration bleiben ausgeschlossen.
+   SHA-256-Prüfsummen zum Paket bereitstellen. Keine ungeprüfte Projektwurzel packen.
+4. **Veröffentlichen:** Einen neuen Tag nach Projektkonvention am geprüften Commit
+   erstellen und gezielt übertragen; keine vorhandenen Release-Tags verschieben.
+   GitHub-Release mit verständlichen Notizen und gegebenenfalls den geprüften
+   Downloadpaketen erstellen, etwa über den verfügbaren Connector oder `gh release`.
+   Draft und Pre-Release nur verwenden, wenn Auftrag beziehungsweise Projektkanal
+   dies vorsehen. Bei unklarem API-Ergebnis zuerst nachsehen, ob der Release bereits
+   existiert, statt ihn doppelt anzulegen oder fremde Assets zu überschreiben.
+5. **Nachweis:** Release-URL, Status, Tag und Commit-Zuordnung prüfen. Hochgeladene
+   Pakete wieder herunterladen und ihre Prüfsummen mit dem geprüften Paket
+   vergleichen. README und vorhandenes Wiki auf neue Befehle, Installation und
+   Release-Hinweise abstimmen. Einen Release erst danach als veröffentlicht melden.
+
+Ein GitHub-Release ist kein Nachweis eines Website-/App-Deployments. Falls beides
+beauftragt ist, zusätzlich den folgenden Deploy-Ablauf ausführen. Ist nur der
+Release beauftragt, keine Live-Systeme verändern. Der Release-Abschluss gilt auch
+für `/dev-fast` und `/fast-dev`, wenn ihre Aufgabe eine Veröffentlichung umfasst;
+Tempo ersetzt keine notwendigen Paket-, Sicherheits- oder Versionsprüfungen.
+
+### 7. Deploy auf Dev/Staging und Live
 
 Vor jedem Deploy:
 
@@ -326,7 +367,7 @@ Deploy-Reihenfolge:
 4. Live-Versionen, Healthchecks und zentrale Nutzerpfade prüfen.
 5. Browser-Smoke mit Playwright, Browser-Plugin oder dokumentiertem Ersatz durchführen.
 
-### 7. Cleanup und Backup-Retention
+### 8. Cleanup und Backup-Retention
 
 Erstelle zuerst eine Inventarliste:
 
@@ -355,7 +396,7 @@ Nicht löschen:
 - unbekannte Dateien mit möglichen Secrets;
 - Nutzeruploads, Medien, Rechnungsdaten, Logs mit rechtlicher Relevanz oder Auditdaten ohne klare Freigabe.
 
-### 8. Projektwissen aktualisieren
+### 9. Projektwissen aktualisieren
 
 Aktualisiere, wenn vorhanden und erreichbar, den im Projekt dokumentierten Wissensort. Das kann zum Beispiel ein `docs/`-Bereich, eine interne Wissensdatenbank, ein Wiki, ein Obsidian-Vault oder eine andere projektbezogene Dokumentationsstruktur sein.
 
@@ -380,12 +421,13 @@ Typische Zielbereiche:
 
 Wenn kein passender Zielordner existiert, lege nur dann einen neuen Projektordner an, wenn Projektname, Zweck und gewünschter Dokumentationsort eindeutig sind. Andernfalls dokumentiere lokal im Projekt und nenne den offenen Wissensdokumentations-Punkt im Abschlussbericht.
 
-### 9. Abschlussbericht
+### 10. Abschlussbericht
 
 Berichte knapp:
 
 - Projektname, aktueller Commit und Branch;
 - GitHub-/Remote-Stand;
+- Release-Version, Tag, zugehöriger Commit, Release-URL und Paket-Prüfsummen beziehungsweise konkreter offener Veröffentlichungsgrund;
 - Dev-/Staging-/Live-Version oder Grund, warum sie nicht prüfbar war;
 - ausgeführte Tests, Browser-Smokes und getestete Funktionen;
 - Backup-Pfad, Umfang und Hashprüfung;
@@ -411,7 +453,7 @@ vorhanden ist, nutz ihn statt einer Eigenbaulösung.
 |---|---|---|
 | `/todo` | Befunde festhalten, die über diesen Lauf hinaus wichtig bleiben | [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) |
 | Fragenkatalog-Skill | Vor Planung oder Release offene Design- und Projektfragen strukturiert klären, statt sie stillschweigend anzunehmen | [Fragenkatalog-Skill](https://github.com/MichaelGahnDESIGN/Fragenkatalog-Skill) |
-| Living-Documentation | Schritt 8 (Projektwissen aktualisieren) findet hier bei Bedarf einen bereits vorbereiteten Zielort für Entscheidungen, offene Punkte, Risiken und Testnachweise | [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) |
+| Living-Documentation | Schritt 9 (Projektwissen aktualisieren) findet hier bei Bedarf einen bereits vorbereiteten Zielort für Entscheidungen, offene Punkte, Risiken und Testnachweise | [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) |
 | `/graphify` | Vor Release und Sync hilft eine Karte des Projekts, um zu sehen, was eine Änderung berührt. | [graphify](https://github.com/Graphify-Labs/graphify) |
 | `/autopilot` | Ein vollständiger Release-Durchlauf mit Tests, Sync und Backup ist genau die Art Aufgabe, die unbeaufsichtigt laufen kann. | [MGD_Autopilot_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Autopilot_SKILL) |
 
