@@ -99,12 +99,12 @@ Kurzbericht je Teilschritt:
 
 Diese Regel ist nicht verhandelbar und hat Vorrang vor jedem Aufräum-, Release- oder Sync-Schritt:
 
-- **Niemals nach GitHub und niemals nach Live** gelangen: Play-Test-Branches und -Artefakte (`PLAYTEST/`, `PlayTest/`, Protokolle, Screenshots), Backups (DB-Dumps, `*.sql`, `*.sql.gz`, `*.dump`, `BACKUPS/`/`BACKUP*`) sowie sensible Daten (`.env*` außer `.env.example`, Tokens, API-Keys, Passwörter, `*.pem`, `*.key`, `id_rsa*`, Dateien mit Zugangsdaten/`server_access`). Diese bleiben **ausschließlich lokal**.
-- **Push-Disziplin:** Nur den vereinbarten Hauptbranch (i. d. R. `main`) pushen. **Niemals** `git push --all` oder `git push --mirror`. Branches, deren Name `playtest` enthält (z. B. `PlayTest*`), werden **nie** gepusht — sie sind reine Lokal-Branches.
-- **Vor jedem Push prüfen:** zu pushende Branchnamen gegen das `playtest`-Muster und `git diff --cached --name-only` bzw. den Push-Bereich gegen die obigen Datei-/Pfadmuster. Bei einem Treffer **abbrechen** und den Befund melden, statt zu pushen.
+- **Niemals nach GitHub und niemals nach Live** gelangen: Play-Test-Branches und -Artefakte (`PLAYTEST/`, `PlayTest/`, Protokolle, Screenshots), Backups (DB-Dumps (SQL-Schema-/Migrationsquellcode ist davon ausgenommen), `BACKUPS/`/`BACKUP*`) sowie sensible Daten (`.env*` außer `.env.example`, Tokens, API-Keys, Passwörter, `*.pem`, `*.key`, `id_rsa*`, Dateien mit Zugangsdaten/`server_access`). Diese bleiben **ausschließlich lokal**.
+- **Push-Disziplin:** Nur den vereinbarten Haupt- oder Feature-Branch pushen. **Niemals** `git push --all` oder `git push --mirror`. Branches, deren Name `playtest` enthält (z. B. `PlayTest*`), werden **nie** gepusht — sie sind reine Lokal-Branches.
+- **Vor jedem Push prüfen:** zu pushende Branchnamen gegen das `playtest`-Muster und alle tatsächlich neu übertragenen Commits und deren Dateipfade im Push-Bereich gegen die obigen Datei-/Pfadmuster. Bei einem Treffer **abbrechen** und den Befund melden, statt zu pushen.
 - **Vor jedem Deploy prüfen:** Die Deploy-Quelle (rsync-Quelle, Build-Verzeichnis, Archiv) enthält keine Backups, keine `PLAYTEST/`-Inhalte und keine Secrets. Niemals Backups oder Test-Artefakte in den Webroot/Live-Stand spielen.
 - Alle genannten Muster gehören in `.gitignore`; fehlt ein Eintrag, zuerst `.gitignore` ergänzen, dann weiterarbeiten.
-- **Technische Absicherung:** Installiere im Projekt den mitgelieferten Pre-Push-Hook `dev/hooks/pre-push` (siehe dort), der Push-Versuche von Playtest-Branches, Backups und Secrets hart blockiert — Belt-and-Suspenders zusätzlich zu dieser Regel.
+- **Technische Absicherung:** Installiere im Projekt den mitgelieferten Pre-Push-Hook `hooks/pre-push` (relativ zu diesem Skill; vorhandene Hooks erhalten und integrieren), der Push-Versuche von Playtest-Branches, Backups und Secrets hart blockiert — Belt-and-Suspenders zusätzlich zu dieser Regel.
 
 ## Ablauf
 
@@ -486,3 +486,7 @@ seine portable Quelle liegt unter [fast-dev/SKILL.md](../fast-dev/SKILL.md).
 
 Sicherheit, Rückfallpunkt und sichtbare Prüfung der betroffenen Funktion bleiben
 verbindlich. Keine pauschale Freigabe für fremde Systeme, Zahlungen oder Löschungen.
+
+## Bestehende Freigaben und Schutzgrenzen
+
+Bereits freigegebene Arbeit ohne erneute Routinefrage fortsetzen. Skill-Empfehlungen sind kein Pflichtstopp. Der Pre-Push-Hook benötigt Python 3, prüft Dateipfade aller neuen Commit-Bäume einschließlich gelöschter Zwischenstände und blockiert bei Prüfproblemen. Er ist keine Inhaltsprüfung und erkennt keine beliebig benannten Dumps oder eingebetteten Geheimnisse; vor Freigabe zusätzlich projektspezifische Secret-Prüfung und inhaltlichen Diff-Review verwenden. Bestehende Hook-Verwaltung erhalten; keine vorhandenen Hooks überschreiben.

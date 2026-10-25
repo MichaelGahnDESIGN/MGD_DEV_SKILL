@@ -1,60 +1,64 @@
 #!/usr/bin/env bash
-#
-# DEV-Skill Pre-Push-Schutz
-# =========================
-# Verhindert technisch, dass Play-Test-Branches, Backups oder sensible Daten
-# nach GitHub (oder ein anderes Remote) gelangen. Ergänzt die "Lokal-only"-
-# Regel aus dev/SKILL.md – als Belt-and-Suspenders, nicht als Ersatz.
-#
-# Installation (im Zielprojekt, einmalig):
-#   cp dev/hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
-# Oder zentral fuer mehrere Repos:
-#   git config core.hooksPath <pfad-zu-hooks-ordner>
-#
-# Git ruft diesen Hook mit den zu pushenden Refs auf stdin auf:
-#   <local_ref> <local_sha> <remote_ref> <remote_sha>
-#
+# Prüft vor einem Push alle erreichbaren neuen Commits einschließlich Zwischenständen.
+# Bestehende Hook-Verwaltung beim Installieren erhalten; diesen Hook dort einbinden.
+# Python 3 ist erforderlich. Bei fehlendem Werkzeug oder unlesbarer Historie wird blockiert.
 set -euo pipefail
+python3 - 3<&0 <<'PY'
+import os
+import re
+import subprocess
+import sys
 
-ZERO='0000000000000000000000000000000000000000'
+def sperren(grund):
+    # Keine sensiblen Dateinamen oder Inhalte in gemeinsam genutzte Logs schreiben.
+    print('Push blockiert: ' + grund, file=sys.stderr)
+    raise SystemExit(1)
 
-# Branchnamen, die niemals gepusht werden duerfen (case-insensitive).
-BLOCK_BRANCH_RE='play[-_]?test'
+def git(*argumente):
+    ergebnis = subprocess.run(['git', *argumente], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if ergebnis.returncode:
+        sperren('Git-Historie konnte nicht vollständig geprüft werden.')
+    return ergebnis.stdout
 
-# Datei-/Pfadmuster fuer Backups und sensible Daten.
-# .env.example ist erlaubt und wird vorab herausgefiltert.
-SENSITIVE_RE='(^|/)(\.env($|\.)|.*\.sql(\.gz)?$|.*\.dump$|backups?/|backup[^/]*/|playtest/|.*\.pem$|.*\.key$|id_rsa|server_access|credentials)'
+def nullwert(wert):
+    return bool(wert) and set(wert) == {'0'}
 
-fail() {
-  echo "" >&2
-  echo "🚫 pre-push BLOCKIERT: $1" >&2
-  echo "   (DEV-Skill Lokal-only-Regel: Playtests, Backups und Secrets bleiben lokal.)" >&2
-  echo "" >&2
-  exit 1
-}
+def sensibel(pfad):
+    # SQL-Quellcode für Schema/Migrationen ist zulässig; Dumps/Backups bleiben lokal.
+    teile = pfad.lower().split(b'/')
+    datei = teile[-1]
+    if datei == b'.env.example':
+        return False
+    if datei == b'.env' or datei.startswith(b'.env.'):
+        return True
+    if any(t.startswith(b'backup') or t in (b'playtest', b'play-test', b'play_test') for t in teile):
+        return True
+    return (datei.endswith((b'.pem', b'.key', b'.dump', b'.sql.gz'))
+            or datei.startswith((b'id_rsa', b'id_ed25519', b'server_access', b'credentials'))
+            or (datei.endswith(b'.sql') and any(t in datei for t in (b'dump', b'backup'))))
 
-while read -r local_ref local_sha remote_ref remote_sha; do
-  # Branch-Loeschungen (local_sha = 0) sind erlaubt.
-  [ "$local_sha" = "$ZERO" ] && continue
-
-  branch="${local_ref#refs/heads/}"
-  if printf '%s' "$branch" | grep -Eiq "$BLOCK_BRANCH_RE"; then
-    fail "Branch '$branch' ist ein Play-Test-Branch und darf nicht gepusht werden."
-  fi
-
-  # Zu pushende Dateien ermitteln.
-  if [ "$remote_sha" = "$ZERO" ]; then
-    # Neuer Remote-Branch: alle Dateien der neuen Commits betrachten.
-    files=$(git diff-tree --no-commit-id --name-only -r "$local_sha" 2>/dev/null || true)
-  else
-    files=$(git diff --name-only "$remote_sha" "$local_sha" 2>/dev/null || true)
-  fi
-
-  # .env.example herausfiltern, dann gegen sensible Muster pruefen.
-  if printf '%s\n' "$files" | grep -Eiv '(^|/)\.env\.example$' | grep -Eiq "$SENSITIVE_RE"; then
-    hit=$(printf '%s\n' "$files" | grep -Eiv '(^|/)\.env\.example$' | grep -Ei "$SENSITIVE_RE" | head -3 | tr '\n' ' ')
-    fail "Sensible Datei/Backup im Push-Bereich von '$branch': ${hit}"
-  fi
-done
-
-exit 0
+geprueft = set()
+for zeile in os.fdopen(3):
+    felder = zeile.split()
+    if len(felder) != 4:
+        sperren('Ungültige Referenzinformationen.')
+    lokale_ref, lokal, remote_ref, remote = felder
+    if nullwert(lokal):
+        continue  # Git-Ref-Löschungen enthalten keine neu übertragenen Objekte.
+    if re.search(r'play[-_]?test', lokale_ref + ' ' + remote_ref, re.I):
+        sperren('Playtest-Referenzen müssen lokal bleiben.')
+    # Auch annotierte Tags werden auf einen Commit aufgelöst; unbekannte Objekte blockieren.
+    kopf = git('rev-parse', '--verify', lokal + '^{commit}').decode().strip()
+    args = ['rev-list', kopf]
+    if not nullwert(remote):
+        basis = git('rev-parse', '--verify', remote + '^{commit}').decode().strip()
+        args += ['--not', basis]
+    for commit in git(*args).decode().splitlines():
+        if commit in geprueft:
+            continue
+        geprueft.add(commit)
+        # Vollständiger Baum jedes neuen Commits: Root-, Merge- und gelöschte Zwischenstände.
+        for pfad in git('ls-tree', '-r', '--name-only', '-z', commit).split(b'\0'):
+            if pfad and sensibel(pfad):
+                sperren('Ein neuer Commit enthält eine geschützte Datei oder einen Backup-/Playtest-Pfad.')
+PY
