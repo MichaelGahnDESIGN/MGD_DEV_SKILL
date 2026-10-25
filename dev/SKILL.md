@@ -12,7 +12,23 @@ Dieser Skill bringt ein Projekt in einen einheitlichen, geprüften Arbeitsstand:
 
 Der Skill ist projektneutral. Projektname, Stack, Live-/Staging-Ziele, Backup-Pfade, Testbefehle und Dokumentationsorte werden immer aus dem aktuellen Repository, den Projektregeln und der vorhandenen Dokumentation abgeleitet.
 
-## Sonderbefehl `/dev-changelog`
+## Sonderbefehle
+
+### `/dev-github`
+
+Nutze diesen fokussierten Ablauf, wenn ein GitHub-Release aus einem bereits fertig entwickelten Projekt entstehen soll. Er ist für README-, Wiki-, Paket- und Release-Pflege gedacht, nicht für Live-Deployments.
+
+1. Projektwurzel, Regeln, Standardbranch, Remote und Arbeitsbaum prüfen. Bei nicht zuordenbaren oder fremden lokalen Änderungen nicht automatisch staschen, verwerfen oder mergen.
+2. Remote-Stand mit `git fetch --prune --tags` aktualisieren. `main` nur per Fast-Forward auf den Remote-Stand bringen; lokale Commits nur nach Diff-Prüfung und wenn sie zum beauftragten Projekt gehören pushen.
+3. README, Changelog und vorhandene Dokumentation gegen die integrierten Änderungen prüfen. Nur tatsächliche Nutzeränderungen, Installationsschritte, Versionen und bekannte Grenzen ergänzen.
+4. Das GitHub-Wiki nur aktualisieren, wenn es existiert und eine Änderung in den öffentlichen Anleitungen wirklich nötig ist. Bestehende Wiki-Struktur erhalten; keine privaten Betriebsdetails, Zugangsdaten oder personenbezogenen Daten übernehmen.
+5. Versionsnummer, Paketname und Release-Referenzen im Projekt konsistent erhöhen. Vor dem Commit alle geänderten Pfade auf Secrets, Backups, Playtests und Build-Müll prüfen.
+6. Dokumentierte Tests, Syntax-/Build-Prüfungen und Paketbau ausführen. Eine SHA-256-Prüfsumme für das veröffentlichte Paket erzeugen.
+7. Die Release-Änderung nachvollziehbar über einen Pull Request nach `main` integrieren. Erst nach grünen verpflichtenden Checks Tag und GitHub-Release mit Paket und Prüfsumme veröffentlichen.
+
+Abbruchbedingungen: Kein Release bei roten oder fehlenden verpflichtenden Checks, inkonsistenter Versionslage, nicht reproduzierbarem Paket oder ungeklärten Änderungen. Eine GitHub-Release ist keine Live-Auslieferung.
+
+### `/dev-changelog`
 
 Wenn der Nutzer `/dev-changelog` aufruft oder ausdrücklich einen Changelog-Assistenten möchte, starte einen fokussierten Changelog-Workflow statt des vollständigen `/dev`-Ablaufs.
 
