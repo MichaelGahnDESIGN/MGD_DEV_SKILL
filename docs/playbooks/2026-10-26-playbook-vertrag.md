@@ -22,8 +22,8 @@ Die unbekannte unversionierte Datei `SKILL.md` im Quellrepo bleibt erhalten.
 | P2 | Vertrag und portable Vorlage in `dev/` und `fast-dev/` ergänzen; Commands, README, Changelog nachziehen | P1 | Vorlage ist aus beiden installierbaren Skills erreichbar; Alias widerspruchsfrei | geprüft |
 | P3 | Diff, interne Links und Paketumfang prüfen | P2 | 11 relative Links gültig; 18 Produktdateien, CRC-/Entpackprüfung und identische Vorlagen im ZIP | geprüft |
 | P4 | Nur passende lokale Installationen synchronisieren | P3 | 11 Dateien hashgleich synchronisiert; unbekannte Root-Skilldatei unverändert | geprüft |
-| P5 | Geprüfte Quellen auf GitHub integrieren und vorhandenes Wiki ergänzen | P3 | Commit und öffentlicher Wiki-Stand zurücklesen | in Arbeit |
-| P6 | Ergebnisse und Grenzen festhalten | P4, P5 | tatsächliche Nachweise im Abschluss, keine Release-/Live-Behauptung ohne Beleg | geplant |
+| P5 | Geprüfte Quellen auf GitHub integrieren und vorhandenes Wiki ergänzen | P3 | Quellcommit `9d27b1f`, Wiki `bf417a1`; Inhalte aus GitHub zurückgelesen | geprüft |
+| P6 | Ergebnisse und Grenzen festhalten | P4, P5 | Prüf- und Veröffentlichungsnachweise unten; Release-/Live-Grenzen benannt | geprüft |
 
 ## Rückfall und Abschluss
 
@@ -49,3 +49,14 @@ bestanden. SHA256 des temporären Prüfpakets:
 `3065c1cfabbb2fcb428c1a4681a8b20dd59ccc1aa507afbdea8cfbc717278e4e`.
 Das Prüfpaket wurde nicht als Release veröffentlicht. Keine CI vorhanden, kein
 Live-System geändert; Markdown- und Paketprüfung sind keine Browser-/Engine-Abnahme.
+
+## Veröffentlichung und Abgleich
+
+- Quelle auf `main`: `9d27b1f` mit Playbook-Vertrag, Vorlagen, Commands, README und Changelog. Dev-/Fast-dev-Inhalte und beide Vorlagen aus GitHubs Contents-API zurückgelesen und bytegleich verglichen.
+- Öffentliches Wiki: `bf417a1` auf `master`, neue Seite `Workflow-Playbook`, vorhandene Fast-dev-Seiten und Navigation abgestimmt. Remote-Fassung der neuen Seite bytegleich zurückgelesen.
+- Lokal: elf Skill-/Command-Dateien nach Prüfung gegen bekannte Ausgangsfassungen synchronisiert und Hashgleichheit belegt. Unbekannte unversionierte Root-`SKILL.md` unverändert erhalten; sie ist nicht Teil dieses Pakets.
+- Kein neues getaggtes Release und kein Website-/Spieldeployment aus diesem Teilauftrag. Das Quellupdate steht unter `Unreleased`; das bisherige Downloadrelease bleibt unverändert.
+
+Gesamtergebnis dieses Teilauftrags: erreicht. Die Playbook-Regeln sind Anweisungen
+für Agenten; sie erzwingen ohne zusätzliche, nicht beauftragte Laufzeit-Hooks
+keine Ausführungsreihenfolge auf Betriebssystemebene.
