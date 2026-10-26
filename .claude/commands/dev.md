@@ -1,5 +1,11 @@
 # /dev
 
+Bei jedem Aufruf vor der Umsetzung das bestehende Playbook fortschreiben oder
+nach der mitgelieferten Skill-Vorlage anlegen. Schritte in Reihenfolge mit ihren
+Voraussetzungen abgleichen; nach jedem Schritt Beleg und Status nachführen.
+Beim Fortsetzen zuerst Git-/Zielstand abgleichen, Planänderungen vorher begründen.
+Bei ausdrücklich rein lesendem Auftrag bleibt das Playbook im Bericht.
+
 Starte den DEV-Skill für dieses Projekt.
 
 ## Verhalten

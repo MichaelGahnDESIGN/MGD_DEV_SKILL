@@ -1,5 +1,11 @@
 # /fast-dev
 
+Bei jedem Aufruf vor der Umsetzung das bestehende Playbook fortschreiben oder
+nach der mitgelieferten Skill-Vorlage anlegen. Schritte in Reihenfolge mit ihren
+Voraussetzungen abgleichen; nach jedem Schritt Beleg und Status nachführen.
+Beim Fortsetzen zuerst Git-/Zielstand abgleichen, Planänderungen vorher begründen.
+Bei ausdrücklich rein lesendem Auftrag bleibt das Playbook im Bericht.
+
 Nutze den installierten Skill `fast-dev`. Seine mitgelieferte Quelle liegt in
 `fast-dev/SKILL.md` dieses Repositories. Löse den Pfad relativ zur tatsächlichen
 Skill-Installation auf; das aktuelle Arbeitsprojekt muss dieses Repository nicht enthalten.

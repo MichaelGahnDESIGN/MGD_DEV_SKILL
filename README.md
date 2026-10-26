@@ -63,6 +63,31 @@ Er ist bewusst vorsichtig formuliert. Wenn es um Produktivsysteme, Datenbanken,
 Uploads, Admin-Bereiche, Zahlungen oder personenbezogene Daten geht, soll der
 Agent lieber einmal mehr nachweisen, was er tut, als einmal zu schnell handeln.
 
+## Verbindliches Playbook bei jedem Aufruf
+
+`/dev`, `/fast-dev` und der Alias `/dev-fast` planen **vor der Umsetzung** ein
+Playbook und arbeiten dessen Schritte in Reihenfolge ab. Ein bestehendes
+Playbook wird fortgeführt. Ohne Projektvorgabe liegt es unter
+`docs/playbooks/<Datum>-<Auftrag>.md`; bei rein lesenden Aufträgen steht es im Bericht.
+
+Das Playbook hält Ziel, Grundlinie, geschützte Bereiche, geordnete Schritte,
+Voraussetzungen, betroffene Dateien, Erfolgskriterien, Rückfallweg und echte
+Prüfbelege fest. Nach jedem Schritt werden Status und Ergebnis aktualisiert.
+Bei Fehlern warten die abhängigen Schritte; Planänderungen werden vor dem neuen
+Weg begründet. Beim Fortsetzen gleicht der Agent Playbook, Git und Zielstand ab.
+
+Es ergänzt vorhandene Todos um die Ausführungsreihenfolge und verlinkt deren IDs.
+Es ersetzt keine Aufgabenverwaltung und erteilt keine Deploy-/Löschfreigabe.
+Lokal, GitHub, Release und Live bleiben getrennte Nachweise.
+
+- [Vorlage im Dev-Skill](dev/references/PLAYBOOK.template.md)
+- [Gleiche portable Vorlage im Fast-dev-Skill](fast-dev/references/PLAYBOOK.template.md)
+- [Playbook-Ablauf im Wiki](https://github.com/MichaelGahnDESIGN/MGD_DEV_SKILL/wiki/Workflow-Playbook)
+
+Beide Vorlagen liegen im jeweiligen Skillordner und werden bei der normalen
+Ordnerinstallation mitkopiert. Fast-dev verwendet denselben Vertrag mit kleinen
+Schritten und gezielten Prüfungen; keine umfassenden Testläufe ohne Anlass.
+
 ## Empfohlene Begleit-Skills
 
 Der DEV-Skill spielt bewusst mit drei weiteren Skills von Michael Gahn DESIGN
@@ -487,7 +512,7 @@ Keine vollständigen Testschleifen ohne Anlass; Sicherheitsgrenzen bleiben erhal
 
 Installation: Den Ordner `fast-dev` zusätzlich zum Ordner `dev` in das Skills-Verzeichnis
 des verwendeten Agenten kopieren. Codex: `$fast-dev`, Claude Code: `/fast-dev`.
-Der bestehende `/dev-fast`-Modus bleibt verfügbar.
+`/dev-fast` ist der kompatible Alias desselben schnellen Ablaufs.
 
 
 ## Release-Versionen veröffentlichen · ab v1.4.0

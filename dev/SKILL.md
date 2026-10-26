@@ -12,6 +12,42 @@ Dieser Skill bringt ein Projekt in einen einheitlichen, geprüften Arbeitsstand:
 
 Der Skill ist projektneutral. Projektname, Stack, Live-/Staging-Ziele, Backup-Pfade, Testbefehle und Dokumentationsorte werden immer aus dem aktuellen Repository, den Projektregeln und der vorhandenen Dokumentation abgeleitet.
 
+## Verbindliches Playbook bei jedem Aufruf
+
+**Vor der ersten Umsetzung** das passende bestehende Playbook lesen und
+fortschreiben oder eines aus [der Vorlage](references/PLAYBOOK.template.md)
+anlegen. Zielort aus der Projektdokumentation ableiten; ohne Vorgabe
+`docs/playbooks/<Datum>-<Auftrag>.md` verwenden und den Pfad kurz nennen.
+Auch kurze Aufträge brauchen diesen Abgleich. Bei einem ausdrücklich rein
+lesenden Auftrag steht das Playbook im Bericht, ohne eine Datei zu verändern.
+
+1. Ziel, Umfang, Freigaben und geschützte Bereiche sowie den aktuellen Commit und
+   die **Grundlinie** der betroffenen Funktion festhalten. Bestehende Fehler von
+   neuen Fehlern trennen; unbekannte Zustände ausdrücklich unbekannt lassen.
+2. Den Auftrag vor Änderungen in geordnete Schritte mit stabilen IDs zerlegen.
+   Je Schritt: Voraussetzung, betroffene Dateien, überprüfbares Erfolgskriterium,
+   passende Prüfung und Rückfallweg. Bestehende Todo-IDs nur verlinken; das
+   Playbook ist die Ausführungsreihenfolge, keine zweite Aufgabenverwaltung.
+3. Vor jedem Schritt den nächsten ausführbaren Eintrag abgleichen. Erst beginnen,
+   wenn seine Voraussetzungen erfüllt sind. Unabhängige Schritte dürfen bei
+   erlaubter Delegation parallel laufen; Dateien und Zuständigkeiten trennen.
+4. Nach der Änderung gegen das **vorher festgelegte** Kriterium und die Grundlinie
+   prüfen. Ergebnis, Beleg und Status sofort eintragen: `geplant`, `in Arbeit`,
+   `geprüft`, `blockiert` oder `entfallen`. `geprüft` braucht einen echten Beleg;
+   `entfallen` braucht eine Begründung und deckt kein unerfülltes Kriterium ab.
+5. Bei Fehlern den betroffenen Schritt korrigieren und gezielt erneut prüfen.
+   Nachfolgende abhängige Schritte bleiben blockiert. Planänderungen mit Datum,
+   Grund und Auswirkungen dokumentieren, bevor der neue Weg ausgeführt wird;
+   Kriterien nicht nachträglich auf ein schlechtes Ergebnis abschwächen.
+6. Beim Fortsetzen zuerst Playbook, Git- und Zielstand abgleichen. Bereits belegte
+   Schritte nur bei geänderter Grundlage erneut prüfen. Vor Abschluss jeden
+   Eintrag auflösen und lokal, GitHub, Release und Live getrennt mit ihrem
+   tatsächlichen Nachweis ausweisen; Blockaden und nächster Schritt bleiben sichtbar.
+
+Das Playbook erteilt keine zusätzliche Freigabe und enthält keine Secrets,
+privaten Betriebsdaten oder personenbezogenen Prüfprotokolle. Sicherheits- und
+Projektregeln bleiben maßgeblich; ein geplanter Deploy ist kein erlaubter Deploy.
+
 ## Sonderbefehle
 
 ### `/dev-github`
@@ -80,27 +116,23 @@ Wenn ein Projekt bereits ein anderes Changelog-Format nutzt, dieses Format beibe
 
 ## Sonderbefehl `/dev-fast`
 
-Wenn der Nutzer `/dev-fast` aufruft oder ausdrücklich sagt, dass wenig Kontextfenster oder wenig Nutzungslimit übrig ist und trotzdem etwas Fertiges live gehen soll, starte diesen verkürzten Ablauf statt des vollständigen `/dev`-Durchlaufs.
+`/dev-fast` verwendet denselben schnellen Ablauf und Playbook-Vertrag wie
+`/fast-dev`. Ist `fast-dev` installiert, dessen Skill laden; seine portable Quelle
+liegt unter [fast-dev/SKILL.md](../fast-dev/SKILL.md). Fehlt er, diesen Ablauf nutzen:
 
-Ziel: Aus der aktuell anstehenden Arbeit **sofort** einen ersten funktionierenden, live gegangenen Teilschritt machen — statt die ganze Aufgabe zu sammeln und am Ende des Kontextfensters oder Limits mit einer großen, unfertigen Änderung dazustehen. Lieber vier kleine funktionierende Live-Stände nacheinander als eine große Änderung, die nie committet und deployt wird.
+1. Das Playbook oben anlegen oder fortsetzen. Nur den nächsten kleinen,
+   unabhängig nutzbaren Schritt vorbereiten und die dafür nötigen Dateien lesen.
+2. Vorhandene Komponenten verwenden; genau die geänderte Hauptfunktion und ihre
+   Schutzgrenzen prüfen. Bei UI gehört eine echte breite und schmale Sichtprüfung
+   dazu. Keine vollständigen Test-/Lintläufe ohne konkreten Anlass.
+3. Ergebnis und Beleg im Playbook festhalten. Erst nach bestandener Prüfung
+   committen und nach bereits autorisiertem Projektverfahren ausliefern.
+4. Mit dem nächsten freigegebenen Schritt fortfahren. Fehler gezielt korrigieren;
+   abhängige Schritte nicht überspringen. Ein Teilergebnis beendet den Auftrag nicht.
 
-Kompromiss, den `/dev-fast` bewusst eingeht: Es ist schneller und günstiger als `/dev`, aber weniger gründlich. Es macht keine Aussage darüber, dass es "genauso sicher" wäre — es ist die richtige Wahl, wenn das reale Risiko gerade eher im Verlust unfertiger Arbeit liegt als in einer unentdeckten Regression. Bei ausreichend Budget bleibt `/dev` die bessere Wahl für einen sauberen Release.
-
-Arbeitsweise:
-
-1. **Zerlegen statt sammeln.** Bevor irgendetwas geschrieben wird: die anstehende Arbeit in die kleinste sinnvolle, für sich alleine deploybare Einheit zerlegen — nicht "die ganze Funktion", sondern der erste Teilschritt, der allein funktioniert und live gehen kann. Bei mehreren möglichen Teilschritten den zuerst nehmen, der am wenigsten voraussetzt.
-2. **Gezielt lesen, nicht erkunden.** Nur die Dateien und Projektregeln lesen, die für genau diesen einen Teilschritt und seinen Deploy-Weg nötig sind (Deploy-Konvention, Testbefehl, Zielpfad — dieselbe Ableitung aus dem Projekt wie im vollständigen `/dev`, nichts neu erfinden). Keine zusätzlichen Absicherungsrunden, keine Doppelarbeit, keine Erkundung, die nicht direkt zum nächsten deploybaren Schritt beiträgt. Das ist in dieser Zielsituation wichtiger als Gründlichkeit, weil ein Kontextfenster oder Limit, das mitten in einer großen Änderung endet, nichts Fertiges hinterlässt — ein kleiner, sofort committeter und deployter Schritt dagegen schon. Je knapper das Budget wirklich ist, desto mehr darf hier eingespart werden; bei spürbar mehr Luft ruhig etwas gründlicher prüfen.
-3. **Minimal prüfen.** Nur das Nötigste, um keinen kaputten Stand zu deployen: Syntax-/Lint-Check oder gezielter Test für genau den geänderten Teil, kein vollständiger Testlauf, kein vollständiges Lint-Programm des gesamten Projekts, keine Browser-Smokes über das direkt Betroffene hinaus. Die harten Sicherheitsregeln und die Lokal-only-Regel unten gelten unverändert — die gelten immer.
-4. **Sofort committen, deployen, weiter.** Nach der Prüfung: committen, nach der im Projekt üblichen Konvention deployen (Build falls nötig, Push/Deploy nach Projekt-Konvention), und erst danach zum nächsten Teilschritt übergehen. Nicht am Ende der gesamten Aufgabe alles auf einmal committen.
-5. **`/todo`-Verzahnung, falls installiert.** Ist im Projekt bereits `/todo` erkennbar (z. B. `PROJEKT/TODO/TODO.html`, `.todo-config` oder ein `SKILL.md` für `/todo`), die Zerlegung in Teilschritte optional dort als Todos anlegen bzw. erledigte Teilschritte dort abhaken — je nachdem was zum Kontext passt. Das ist eine Verzahnung, keine Pflicht. Ist `/todo` nicht installiert, kurz und unaufdringlich auf [MGD_Todo_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Todo_SKILL) hinweisen, ohne die eigentliche Aufgabe davon abhängig zu machen.
-6. Nach jedem Teilschritt kurz berichten (siehe unten), dann direkt mit dem nächsten Teilschritt weitermachen, solange Aufgabe und Budget das hergeben.
-
-Kurzbericht je Teilschritt:
-
-- was der Teilschritt war und warum er als kleinste sinnvolle Einheit gewählt wurde;
-- was geprüft wurde (bewusst reduziert gegenüber `/dev`);
-- Commit und Deploy-Ziel;
-- was als Nächstes ansteht, falls die Aufgabe noch nicht fertig ist.
+Die schnelle Variante begrenzt den Umfang je Schritt. Sie ersetzt keine nötige
+Sicherheitsprüfung, Sicherung oder Freigabe. `/dev` bleibt der vollständige Ablauf;
+bei einem Release-Auftrag gelten dessen Paket-, Tag- und Releaseprüfungen auch hier.
 
 ## Harte Sicherheitsregeln
 
@@ -498,7 +530,7 @@ eigentliche Aufgabe.
 `/fast-dev` ist der eigenständige Begleiter für zügige, freigegebene Umsetzung mit
 kurzem Playbook und gezielten Prüfungen. Nutze den installierten Skill `fast-dev`;
 seine portable Quelle liegt unter [fast-dev/SKILL.md](../fast-dev/SKILL.md).
-`/dev-fast` bleibt als bestehender verkürzter Dev-Ablauf erhalten.
+`/dev-fast` ist der kompatible Aufruf desselben schnellen Ablaufs.
 
 Sicherheit, Rückfallpunkt und sichtbare Prüfung der betroffenen Funktion bleiben
 verbindlich. Keine pauschale Freigabe für fremde Systeme, Zahlungen oder Löschungen.
