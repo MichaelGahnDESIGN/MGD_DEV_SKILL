@@ -48,6 +48,10 @@ belegen. Keine zusätzliche Freigabe und keine Secrets durch das Playbook.
 5. Sichere einen nachvollziehbaren Rückfallpunkt. Deploye nur positiv ausgewählte
    Produktdateien, keine Projektwurzel, Secrets, privaten Sicherungen oder Testdaten.
    Bestehende Freigaben und Sicherheitsmodi bleiben verbindlich.
+   Gibt es ein Sammel-Deploy-Skript, nenne dem Nutzer genau **einen** Befehl
+   (`cd <Klon> && git pull --rebase && <Sammel-Deploy, z. B. deploy.sh alle>`)
+   statt mehrerer Einzelbefehle; Erfolgsmarker und „Aktueller Commit“ je Ziel
+   prüfen, nie aus einer veralteten Kopie ausrollen.
 6. Sobald ein Schritt geprüft und nutzbar ist: nachvollziehbar committen und nach
    autorisiertem Projektverfahren veröffentlichen. Mit dem nächsten Schritt direkt
    weitermachen, bis der Auftrag erledigt ist. Ein Teilergebnis beendet den Auftrag nicht.

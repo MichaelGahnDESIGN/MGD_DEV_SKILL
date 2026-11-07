@@ -407,6 +407,8 @@ Vor jedem Deploy:
 - Restore-Pfad und Backup-Ort im Bericht nennen;
 - Secrets nicht anzeigen oder speichern.
 
+**Ein Befehl statt vieler:** Gibt es im Projekt ein Sammel-Deploy-Skript (z. B. `scripts/deploy/deploy.sh alle`), nenne dem Nutzer genau diese eine Zeile, nach Möglichkeit mit vorgeschaltetem `git pull --rebase` aus dem aktuellen Klon (`cd <Klon> && git pull --rebase && <Sammel-Deploy>`). Keine Folge einzelner Ziel-Befehle, keine wiederholten Läufe desselben Ziels. Zusätzliche Hinweise nur bei Fehlern oder wenn eine ausdrücklich freigegebene Migration eine Umgebungsvariable braucht. Erfolg gilt erst bei ausgegebenem Erfolgsmarker je Ziel und passendem „Aktueller Commit“ (Abgleich mit `git log -1`); nie aus einer veralteten Kopie (z. B. einem NAS-Checkout) deployen.
+
 Deploy-Reihenfolge:
 
 1. Dev/Staging aktualisieren und smoke-testen.

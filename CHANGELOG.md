@@ -6,6 +6,7 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
 ### Geändert
 
+- Deploy: Ein einziger Sammelbefehl (`git pull --rebase && <Sammel-Deploy>`) statt vieler Einzelbefehle, mit Erfolgs- und Commit-Abgleich; in `/dev` und `/fast-dev`.
 - Verbindliches Playbook vor jedem Dev-/Fast-dev-Aufruf: Grundlinie, geordnete Schritte, Voraussetzungen, Kriterien und Rückfallweg planen; jeden Schritt mit Status und Beleg abgleichen.
 - Fortsetzung und begründete Planänderungen festgelegt. Lokal, GitHub, Release und Live getrennt nachweisen; vorhandene Todo-IDs nur verlinken.
 - `/dev-fast` an denselben schnellen Ablauf wie `/fast-dev` angeglichen; portable Vorlagen in beiden Skillordnern und aktualisierte Command-Vorlagen.
