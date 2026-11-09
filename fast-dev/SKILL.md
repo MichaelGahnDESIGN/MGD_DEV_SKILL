@@ -35,6 +35,13 @@ belegen. Keine zusätzliche Freigabe und keine Secrets durch das Playbook.
 
 1. Lies Regeln, Git-Status, betroffene Fach-Doku und den vorhandenen Deployment-Weg.
    Nutze den Projektgraph gezielt, falls vorgeschrieben. Nicht das ganze Projekt prüfen.
+   Gibt es in dem Lauf absehbar viele Berechtigungsabfragen, einmal
+   `/fewer-permission-prompts` anwenden: häufig genutzte, schreibgeschützte
+   Befehle kommen in die Projektdatei `.claude/settings.json` (`permissions.allow`),
+   nie in `~/.claude/settings.json`; vorhandene Einträge bleiben. Nie aufnehmen:
+   Interpreter, Shells, `ssh`, Paketrunner, Task-Runner mit Wildcard, `gh api`,
+   `docker run`/`exec`, `sudo` und alles Schreibende. Die Datei nicht
+   eigenmächtig committen.
 2. Plane beziehungsweise aktualisiere das Playbook oben. Wähle den nächsten
    ausführbaren kleinen Schritt mit erfüllten Voraussetzungen; vorhandene Todos
    nur verlinken.

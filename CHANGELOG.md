@@ -6,6 +6,7 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
 ### Geändert
 
+- `/fast-dev`: Bei absehbar vielen Berechtigungsabfragen einmal `/fewer-permission-prompts` anwenden (nur schreibgeschützte Befehle in die Projektdatei `.claude/settings.json`, nie Interpreter, Shells, Paketrunner oder Schreibendes).
 - Deploy: Ein einziger Sammelbefehl (`git pull --rebase && <Sammel-Deploy>`) statt vieler Einzelbefehle, mit Erfolgs- und Commit-Abgleich; in `/dev` und `/fast-dev`.
 - Verbindliches Playbook vor jedem Dev-/Fast-dev-Aufruf: Grundlinie, geordnete Schritte, Voraussetzungen, Kriterien und Rückfallweg planen; jeden Schritt mit Status und Beleg abgleichen.
 - Fortsetzung und begründete Planänderungen festgelegt. Lokal, GitHub, Release und Live getrennt nachweisen; vorhandene Todo-IDs nur verlinken.
