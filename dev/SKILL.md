@@ -1,7 +1,7 @@
 ---
 name: dev
 description: >-
-  Use when the user invokes /dev, /dev-changelog, /dev-fast, /fast-dev, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, versioning, GitHub releases, and project knowledge documentation. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
+  Use when the user invokes /dev, /dev-changelog, /dev-fast, /fast-dev, or asks to synchronize a software project across local worktree, GitHub, main/dev branches, staging/live deployments, backups, cleanup, browser/Playwright smoke tests, changelog maintenance, versioning, GitHub releases, and project knowledge documentation. Uses Superpowers skills (planning, debugging, verification, review) and Hallmark (design of new pages) when installed. /dev-fast is the token- und zeitsparende Variante für wenig Kontext/Limit: kleine deploybare Teilschritte statt eines vollständigen Durchlaufs.
 ---
 
 # Dev
@@ -506,6 +506,8 @@ vorhanden ist, nutz ihn statt einer Eigenbaulösung.
 | Living-Documentation | Schritt 9 (Projektwissen aktualisieren) findet hier bei Bedarf einen bereits vorbereiteten Zielort für Entscheidungen, offene Punkte, Risiken und Testnachweise | [MGD_Living-Documentation](https://github.com/MichaelGahnDESIGN/MGD_Living-Documentation) |
 | `/graphify` | Vor Release und Sync hilft eine Karte des Projekts, um zu sehen, was eine Änderung berührt. | [graphify](https://github.com/Graphify-Labs/graphify) |
 | `/autopilot` | Ein vollständiger Release-Durchlauf mit Tests, Sync und Backup ist genau die Art Aufgabe, die unbeaufsichtigt laufen kann. | [MGD_Autopilot_SKILL](https://github.com/MichaelGahnDESIGN/MGD_Autopilot_SKILL) |
+| Superpowers | Arbeitsmethode für Planung, Fehlersuche, Tests, Review und sauberen Abschluss (siehe Abschnitt „Superpowers nutzen“) | [obra/superpowers](https://github.com/obra/superpowers) |
+| `/hallmark` | Gestaltung neuer Webseiten, die nicht nach KI aussehen (siehe Abschnitt „Hallmark nutzen“) | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) |
 
 Ist im Projekt kein `/todo` erkennbar (keine `TODO.html`, `.todo-config` oder
 `SKILL.md` dafür), einmal kurz und unaufdringlich auf
@@ -527,6 +529,51 @@ eigentliche Aufgabe.
 > Einmal fragen, Antwort akzeptieren, nicht wiederholen. Bei kurzen, klar
 > umrissenen Aufgaben ganz weglassen.
 
+## Superpowers nutzen
+
+[Superpowers](https://github.com/obra/superpowers) ist eine Sammlung von Arbeitsmethoden-Skills (Planung, Fehlersuche, Tests, Review, Abschluss). `/dev` und `/fast-dev` nutzen sie, **wenn sie installiert sind**. Sie sind nie Voraussetzung.
+
+**Erkennung:** Skills mit Namen wie `superpowers:brainstorming` oder `superpowers:systematic-debugging` stehen in der Skill-Liste, oder das Plugin `superpowers` ist unter `~/.claude/plugins` eingetragen. Ist nichts da: normal weiterarbeiten und im Abschlussbericht einmal kurz auf die Installation hinweisen. **Nie** ungefragt installieren, erst den Nutzer fragen (Installation: `/plugin install superpowers@claude-plugins-official`).
+
+**Zuordnung — welche Superpowers-Skills an welcher Stelle:**
+
+| Situation im Ablauf | Skill |
+|---|---|
+| Neue Funktion oder größere Änderung, Anforderungen noch unscharf (vor dem Umsetzen) | `brainstorming`, danach `writing-plans` |
+| Plan liegt vor und wird abgearbeitet | `executing-plans`; bei mehreren unabhängigen Teilaufgaben `subagent-driven-development` bzw. `dispatching-parallel-agents` |
+| Isolierte Arbeitskopie für einen Branch nötig (Schritt 3) | `using-git-worktrees` |
+| Fehler, fehlschlagender Test oder unerwartetes Verhalten (vor jedem Fix, auch in Schritt 4/5/7) | `systematic-debugging` |
+| Neue Logik mit sinnvoll testbarem Verhalten (Schritt 4) | `test-driven-development` |
+| Vor jeder Aussage „fertig / geht / Tests grün“, vor Commit, Release und Deploy (Schritte 4 bis 7, Abschlussbericht) | `verification-before-completion` — Beweis vor Behauptung |
+| Nach größeren Änderungen, vor dem Zusammenführen (Schritt 3) | `requesting-code-review`; Rückmeldungen mit `receiving-code-review` bearbeiten |
+| Arbeitsbranch ist fertig und wird integriert oder aufgeräumt (Schritt 3, 8) | `finishing-a-development-branch` |
+
+**Vorrang der eigenen Regeln:** Wenn eine Superpowers-Anweisung den harten Sicherheitsregeln, der Lokal-only-Regel, Projektregeln, dem verbindlichen Playbook oder dem Auftrag des Nutzers widerspricht, gewinnt immer die Regel von `/dev` bzw. des Nutzers. Superpowers legt keine eigenen Plan- oder Spec-Dateien im Projekt ab, wenn das Playbook bereits der Planort ist (Pläne dort eintragen). Superpowers darf keine Freigabe für Push, Deploy, Löschen, Zahlungen oder fremde Systeme ersetzen. Subagenten bekommen dieselben Sicherheitsregeln mit.
+
+**Maß halten:** Bei kleinen, klar umrissenen Änderungen (Tippfehler, Text, einzelne Zeile) kein Brainstorming und keinen eigenen Plan — nur `verification-before-completion`.
+
+## Hallmark nutzen
+
+[Hallmark](https://github.com/Nutlope/hallmark) (Nutlope, MIT-Lizenz) ist ein Design-Skill, der Webseiten gestaltet, die nicht nach KI-Standard aussehen. Es prüft das Ergebnis zusätzlich per Linter im Browser.
+
+**Wann nutzen:** Wenn der Auftrag eine **neue** Webseite, Landingpage, Unterseite oder neue Oberfläche gestalten oder bauen soll und `hallmark` installiert ist (`~/.claude/skills/hallmark`, `~/.agents/skills/hallmark`, Skill-Liste oder Plugin `hallmark:hallmark`). Aufruf: `/hallmark <Beschreibung der Seite>`.
+
+**Wann NICHT:**
+
+- Bei bestehenden Designs, Themes oder Seitensystemen (zum Beispiel Divi, bestehendes Child-Theme, vorhandene Markenrichtlinie) **nicht** von selbst anwenden. Hallmark fasst Bestehendes nur an, wenn der Nutzer es ausdrücklich nennt (`/hallmark redesign <Pfad>` bzw. `/hallmark audit <Pfad>`).
+- Bei reinen Fehlerbehebungen, Text-, Inhalts- oder Backend-Änderungen.
+- Wenn das Projekt ein gesperrtes Designsystem hat (`design.md` / `DESIGN.md`) — dieses hat Vorrang, Hallmark richtet sich danach.
+
+**Einbindung in den Ablauf:**
+
+1. Vor dem Bauen einer neuen Seite: `/hallmark` aufrufen. Es fragt einmal nach Material (Fotos, Zahlen, Texte) — nichts erfinden, nur echte Inhalte nutzen.
+2. Nach dem Bauen: Hallmark-Linter laufen lassen, falls Node verfügbar ist: `node <skill-dir>/scripts/sloplint.mjs <Datei-oder-Ordner> --render` (die Browser-Prüfung braucht `puppeteer-core` und Chrome; ohne beides laufen nur die statischen Prüfungen). Alle `FAIL` beheben. Das ersetzt nicht den Browser-Smoke aus Schritt 5, sondern ergänzt ihn.
+3. Im Abschlussbericht nennen: Hallmark genutzt ja/nein, Linter-Ergebnis, bewusst gewaltete Regeln.
+
+**Installation (nur nach Rückfrage beim Nutzer, Code von Dritten):** `npx skills add nutlope/hallmark -g` (braucht Node 18+). Alternativ als Plugin: `/plugin marketplace add nutlope/hallmark` und `/plugin install hallmark@hallmark`. Ist Hallmark nicht installiert und die Aufgabe ist eine neue Seite: einmal kurz im Abschlussbericht darauf hinweisen, nicht darauf warten.
+
+**Sicherheit:** Hallmark-Fotos stammen von Wikimedia Commons und werden auf der Seite gecreditet; sie enthalten keine Zugangsdaten. Screenshots und Vorschau-Dateien von Hallmark bleiben lokal, wenn sie Kundendaten zeigen (Lokal-only-Regel gilt).
+
 ## Sonderbefehl `/fast-dev`
 
 `/fast-dev` ist der eigenständige Begleiter für zügige, freigegebene Umsetzung mit
@@ -536,6 +583,11 @@ seine portable Quelle liegt unter [fast-dev/SKILL.md](../fast-dev/SKILL.md).
 
 Sicherheit, Rückfallpunkt und sichtbare Prüfung der betroffenen Funktion bleiben
 verbindlich. Keine pauschale Freigabe für fremde Systeme, Zahlungen oder Löschungen.
+
+Auch `/fast-dev` nutzt Superpowers und Hallmark, aber in der Kurzform: nur
+`verification-before-completion`, bei Fehlern `systematic-debugging` und bei
+neuen Seiten `/hallmark`. Details in den Abschnitten „Superpowers nutzen“ und
+„Hallmark nutzen“ oben.
 
 ## Bestehende Freigaben und Schutzgrenzen
 

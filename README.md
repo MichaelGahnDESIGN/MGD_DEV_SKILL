@@ -503,6 +503,33 @@ Tel.: +49 (0) 151 59156639
 E-Mail: Anfrage@Michael-Gahn.de
 <!-- /MGD-LEGAL -->
 
+## Superpowers und Hallmark nutzen
+
+`/dev` und `/fast-dev` können zwei fremde Skills als Hilfe nutzen. Beide sind
+**freiwillig**. Ohne sie läuft alles wie bisher.
+
+**1. Superpowers** ([obra/superpowers](https://github.com/obra/superpowers))
+ist eine Arbeitsweise für den KI-Agenten: erst planen, Fehler wirklich
+untersuchen, Tests schreiben, Ergebnis prüfen lassen. Wichtigste Regel:
+**Erst beweisen, dann „fertig“ sagen.**
+
+- Installieren in Claude Code: `/plugin install superpowers@claude-plugins-official`
+- Der Agent nutzt es an festen Stellen (Planung, Fehlersuche, Tests, Review, Abschluss).
+- Bei kleinen Änderungen (ein Tippfehler) bleibt es bei der Kurz-Prüfung.
+
+**2. Hallmark** ([Nutlope/hallmark](https://github.com/Nutlope/hallmark))
+gestaltet **neue** Webseiten so, dass sie nicht nach KI aussehen, und prüft
+das Ergebnis mit einem Linter (Prüfprogramm).
+
+- Installieren: `npx skills add nutlope/hallmark -g` (braucht Node 18 oder neuer)
+- Der Agent ruft es nur bei **neuen** Seiten auf: `/hallmark <Beschreibung>`
+- Bestehende Seiten, Themes oder ein vorhandenes `design.md` fasst er **nicht**
+  von sich aus an. Nur wenn du ausdrücklich `/hallmark redesign <Pfad>` sagst.
+
+**Sicherheit:** Der Agent installiert nichts ungefragt. Die Sicherheitsregeln
+von `/dev` (Backups, Lokal-only, keine Secrets) gelten immer zuerst, auch wenn
+Superpowers oder Hallmark etwas anderes vorschlagen.
+
 ## Schnell umsetzen mit `/fast-dev` · ab v1.4.0
 
 Der zusätzliche [Fast-dev-Skill](fast-dev/SKILL.md) arbeitet ein kurzes Playbook

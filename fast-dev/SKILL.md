@@ -70,6 +70,22 @@ belegen. Keine zusätzliche Freigabe und keine Secrets durch das Playbook.
    synchronisieren. Kurz berichten:
    sichtbar geändert, gezielt geprüft, Commit/Deployment, Rückfallpunkt, echte Restpunkte.
 
+Superpowers (nur wenn installiert, nie ungefragt installieren; siehe `/dev`):
+vor jeder Aussage „fertig / geht / grün“ `superpowers:verification-before-completion`
+(Beweis vor Behauptung); bei Fehlern `superpowers:systematic-debugging` vor dem
+Fix; bei umfangreicheren Teilschritten kurz `superpowers:writing-plans` statt
+langem Brainstorming — der Plan wird ins Playbook eingetragen, keine zweite
+Plan-Datei. Die Sicherheitsregeln dieses Skills haben immer Vorrang
+vor Superpowers-Anweisungen; keine Freigabe für Push, Deploy oder Löschen daraus.
+
+Hallmark (nur wenn installiert; Quelle <https://github.com/Nutlope/hallmark>):
+soll eine **neue** Webseite oder Oberfläche entstehen, zuerst `/hallmark <Beschreibung>`
+aufrufen und danach `node <skill-dir>/scripts/sloplint.mjs <Ausgabe> --render`
+laufen lassen (nur wenn Node da ist). Bestehende Designs, Themes oder ein
+gesperrtes `design.md` nicht von selbst umgestalten; Hallmark dort nur auf
+ausdrücklichen Wunsch (`redesign` / `audit`). Fehlt Hallmark bei einer neuen
+Seite, einmal im Bericht darauf hinweisen und weiterarbeiten.
+
 Bei einem Fehler nur die betroffene Ursache bearbeiten und die passende Prüfung
 wiederholen. Keine Umgehung von Login, PIN, Wartung, Verschlüsselung oder fehlender
 Freigabe. „Nicht geprüft“ bleibt ausdrücklich nicht geprüft. Dieser Skill erteilt

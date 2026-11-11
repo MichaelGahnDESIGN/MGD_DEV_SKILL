@@ -4,6 +4,11 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
 ## Unreleased
 
+### Neu
+
+- `/dev` und `/fast-dev` nutzen [Superpowers](https://github.com/obra/superpowers), wenn installiert: Planung, Fehlersuche (`systematic-debugging`), Tests, Review und „Beweis vor Behauptung“ (`verification-before-completion`) an festen Stellen im Ablauf. Eigene Sicherheitsregeln und Playbook haben immer Vorrang.
+- `/dev` und `/fast-dev` nutzen [Hallmark](https://github.com/Nutlope/hallmark), wenn installiert und eine **neue** Webseite entsteht: `/hallmark` vor dem Bauen, Linter (`sloplint`) danach. Bestehende Designs werden nur auf ausdrücklichen Wunsch angefasst. Installation immer nur nach Rückfrage.
+
 ### Geändert
 
 - `/fast-dev`: Bei absehbar vielen Berechtigungsabfragen einmal `/fewer-permission-prompts` anwenden (nur schreibgeschützte Befehle in die Projektdatei `.claude/settings.json`, nie Interpreter, Shells, Paketrunner oder Schreibendes).
