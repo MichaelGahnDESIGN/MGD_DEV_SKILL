@@ -4,6 +4,8 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
 ## Unreleased
 
+## 1.5.0 - 2026-11-11
+
 ### Neu
 
 - Neuer Skill und Befehl `/mgd-design-check`: prüft Designs mit Hallmark (Prüfbericht plus Linter im echten Browser), baut mit `neu` neue Seiten und behebt mit `polish` nur KI-Merkmale. Installiert fehlendes `puppeteer-core` selbst global; Hallmark nur nach Rückfrage. Befehlsvorlagen für Claude Code und Codex.
