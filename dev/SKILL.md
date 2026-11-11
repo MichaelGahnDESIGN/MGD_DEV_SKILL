@@ -570,6 +570,8 @@ eigentliche Aufgabe.
 2. Nach dem Bauen: Hallmark-Linter laufen lassen, falls Node verfügbar ist: `node <skill-dir>/scripts/sloplint.mjs <Datei-oder-Ordner> --render` (die Browser-Prüfung braucht `puppeteer-core` und Chrome; ohne beides laufen nur die statischen Prüfungen). Alle `FAIL` beheben. Das ersetzt nicht den Browser-Smoke aus Schritt 5, sondern ergänzt ihn.
 3. Im Abschlussbericht nennen: Hallmark genutzt ja/nein, Linter-Ergebnis, bewusst gewaltete Regeln.
 
+**Kurzbefehl:** `/mgd-design-check <Pfad oder URL>` (Skill `mgd-design-check`, Quelle [mgd-design-check/SKILL.md](../mgd-design-check/SKILL.md)) macht Hallmark-Prüfbericht und Browser-Linter in einem Schritt; `neu <Beschreibung>` baut eine neue Seite, `polish <Pfad>` behebt nur KI-Merkmale. Nach UI-Änderungen in `/dev` und `/fast-dev` kann er als Prüfung laufen. Fehlt `puppeteer-core`, installiert der Skill es selbst global (`npm i -g puppeteer-core`).
+
 **Installation (nur nach Rückfrage beim Nutzer, Code von Dritten):** `npx skills add nutlope/hallmark -g` (braucht Node 18+). Alternativ als Plugin: `/plugin marketplace add nutlope/hallmark` und `/plugin install hallmark@hallmark`. Ist Hallmark nicht installiert und die Aufgabe ist eine neue Seite: einmal kurz im Abschlussbericht darauf hinweisen, nicht darauf warten.
 
 **Sicherheit:** Hallmark-Fotos stammen von Wikimedia Commons und werden auf der Seite gecreditet; sie enthalten keine Zugangsdaten. Screenshots und Vorschau-Dateien von Hallmark bleiben lokal, wenn sie Kundendaten zeigen (Lokal-only-Regel gilt).

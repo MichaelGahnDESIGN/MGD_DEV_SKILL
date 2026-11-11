@@ -6,6 +6,7 @@ Alle wichtigen Änderungen an diesem Repository werden hier dokumentiert.
 
 ### Neu
 
+- Neuer Skill und Befehl `/mgd-design-check`: prüft Designs mit Hallmark (Prüfbericht plus Linter im echten Browser), baut mit `neu` neue Seiten und behebt mit `polish` nur KI-Merkmale. Installiert fehlendes `puppeteer-core` selbst global; Hallmark nur nach Rückfrage. Befehlsvorlagen für Claude Code und Codex.
 - `/dev` und `/fast-dev` nutzen [Superpowers](https://github.com/obra/superpowers), wenn installiert: Planung, Fehlersuche (`systematic-debugging`), Tests, Review und „Beweis vor Behauptung“ (`verification-before-completion`) an festen Stellen im Ablauf. Eigene Sicherheitsregeln und Playbook haben immer Vorrang.
 - `/dev` und `/fast-dev` nutzen [Hallmark](https://github.com/Nutlope/hallmark), wenn installiert und eine **neue** Webseite entsteht: `/hallmark` vor dem Bauen, Linter (`sloplint`) danach. Bestehende Designs werden nur auf ausdrücklichen Wunsch angefasst. Installation immer nur nach Rückfrage.
 

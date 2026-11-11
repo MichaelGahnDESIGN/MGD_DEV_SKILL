@@ -85,6 +85,8 @@ laufen lassen (nur wenn Node da ist). Bestehende Designs, Themes oder ein
 gesperrtes `design.md` nicht von selbst umgestalten; Hallmark dort nur auf
 ausdrücklichen Wunsch (`redesign` / `audit`). Fehlt Hallmark bei einer neuen
 Seite, einmal im Bericht darauf hinweisen und weiterarbeiten.
+Kurzbefehl für Prüfung/Linter: `/mgd-design-check <Pfad oder URL>` (installiert
+ein fehlendes `puppeteer-core` global selbst; Hallmark selbst nur nach Rückfrage).
 
 Bei einem Fehler nur die betroffene Ursache bearbeiten und die passende Prüfung
 wiederholen. Keine Umgehung von Login, PIN, Wartung, Verschlüsselung oder fehlender

@@ -153,6 +153,7 @@ DEV-Skill/
 │       ├── dev-fast.md
 │       └── fast-dev.md
 ├── fast-dev/                 ← Eigenständiger Begleit-Skill mit MIT-Lizenz
+├── mgd-design-check/         ← Design-Prüfung mit Hallmark (/mgd-design-check)
 └── dev/
     ├── SKILL.md
     └── agents/
@@ -526,7 +527,16 @@ das Ergebnis mit einem Linter (Prüfprogramm).
 - Bestehende Seiten, Themes oder ein vorhandenes `design.md` fasst er **nicht**
   von sich aus an. Nur wenn du ausdrücklich `/hallmark redesign <Pfad>` sagst.
 
-**Sicherheit:** Der Agent installiert nichts ungefragt. Die Sicherheitsregeln
+**Eigener Befehl: `/mgd-design-check`** (Skill-Ordner `mgd-design-check`)
+
+- `/mgd-design-check <Pfad oder URL>`: prüft ein Design und schreibt einen Bericht. Ändert nichts.
+- `/mgd-design-check neu <Beschreibung>`: baut eine neue Seite mit Hallmark.
+- `/mgd-design-check polish <Pfad>`: behebt nur die gefundenen KI-Merkmale.
+- Fehlt `puppeteer-core` (das Prüfprogramm für den Browser), installiert der Befehl es von selbst: `npm i -g puppeteer-core`. Chrome muss auf dem Rechner sein.
+- Fehlt Hallmark, fragt der Befehl vorher nach.
+- Installation: den Ordner `mgd-design-check` zusätzlich zu `dev` und `fast-dev` in das Skills-Verzeichnis kopieren.
+
+**Sicherheit:** Der Agent installiert nichts ungefragt (außer `puppeteer-core` für `/mgd-design-check`). Die Sicherheitsregeln
 von `/dev` (Backups, Lokal-only, keine Secrets) gelten immer zuerst, auch wenn
 Superpowers oder Hallmark etwas anderes vorschlagen.
 
