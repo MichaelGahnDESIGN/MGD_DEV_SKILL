@@ -116,6 +116,12 @@ installiert sind, und fragt bei fehlenden nach, ob sie mitinstalliert werden
 sollen — siehe `dev/SKILL.md`, Abschnitt „Companion-Skill-Check". Bei jedem
 weiteren Lauf im selben Projekt wird nicht erneut gefragt.
 
+## Design-Qualität mit Hallmark sowie ECC und Superpowers
+
+Für neue Webseiten und Oberflächen arbeitet der DEV-Skill mit [Hallmark](https://github.com/nutlope/hallmark) zusammen. Bestehende Themes, Markenrichtlinien und eine gesperrte `design.md` haben Vorrang; ein Audit oder Redesign erfolgt nur bei ausdrücklichem Auftrag.
+
+Bei der Erstinstallation richtet der Skill außerdem [ECC Core](https://github.com/affaan-m/ECC) und [Superpowers](https://github.com/obra/superpowers) über ihre offiziellen Quellen ein. Der lokale Skill-Update-Ablauf gleicht alle drei Komponenten ab; vorhandene Nutzeranpassungen bleiben erhalten.
+
 ## Grundprinzipien
 
 Der Skill folgt ein paar einfachen Prinzipien:
